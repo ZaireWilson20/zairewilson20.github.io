@@ -40,7 +40,20 @@
           color: $theme-dark;
         }
       }
+      .resumePdf{
+        margin-top: 15px;
+        background-color: #fff;
+        color: $theme-color;
+        border-radius: 40px;
+        padding: 20px;
+        width: fit-content;
+        font-weight: 600;
+      }
+      .resumePdf:hover {
+        background-color: #dadada;
+      }
     }
+
     .bg {
       content: "";
       z-index: -1;

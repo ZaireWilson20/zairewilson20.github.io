@@ -18,7 +18,12 @@
     .post-content{
         overflow: hidden;
         margin-bottom: 100px;
+        p {
+            line-height: 2.0em;
+            target: "_blank";
+        }
     }
+
 }
 .top-btn{
     -webkit-transition-duration: 0.5s;

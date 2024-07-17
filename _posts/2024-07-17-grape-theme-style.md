@@ -12,9 +12,10 @@ comments : True
 <br>
 
 <h2>Camera Perspective</h2>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Describe how I change camera perspective when looking for groceries
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;While doing research for this game, I noticed a huge part of what makes horror games effective at giving the player the heeby jeebies are the perspectives the player is given. When moving through doors and other transitional walkways in the OG Resident Evil, the camera would fade to black while bringing and isolated view of the passageway (doors, stairs, etc) into the player's view; this created a anxious sense of anticipation as the player is made aware that they'll be something new, but is given no visual heads up into what might await on the other side of the door. Basically, the player doesn't know what's around the corner until they are looking directly at it. While Resident Evil was made in 3rd person, we can use different techniques within the 1st person perspective to take away visual information from the player in hopes of inducing anxiety an paranoia. 
 <br>
 <br>
+{% include image.html url="/assets/img/GroceryRunZoom.gif" description="Right Click and Hold to Pickup" %}
 <h2>Camera Controll</h2>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Describe how I take player control away from rotating the camera while looking for groceries
 

@@ -4,14 +4,14 @@ url : "https://zairewilson20.github.io"
 
 # Blog Settings
 theme_settings :
-  title : Grape Theme
+  title : Zaire Wilson
   favicon : assets/favicon.ico
 
   # Profile Settings
   profile :
     image : assets/img/ZAvatar.webp
     username : Zaire Wilson
-    description : Programmer of Games, Watcher of Anime, Toucher of Grass
+    description : Programmer of Games, Watcher of Anime, Father of Cats
     experience :
       - start : January 2022
         end : June 2024
@@ -35,8 +35,19 @@ theme_settings :
         value : 60  # Percent value          
       - skill : HTML5 & CSS
         value : 50  # Percent       
-      - skill : javascript
+      - skill : XAML
         value : 60  # Percent value
+      - skill : React.js
+        value : 60  # Percent value
+    education :
+      - start : August 2020
+        end : May 2021
+        school : Rensselaer Polytechnic Institute
+        degree: M.S. Critical Game Design
+      - start : August 2016
+        end : May 2020
+        school : Rensselaer Polytechnic Institute
+        degree: B.S. Game and Simulation, Arts and Science + Computer Science
 
         
   # Icons

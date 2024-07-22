@@ -10,13 +10,15 @@
       color: $theme-dark;
       font-size: 25px;
       font-weight: 600;
+      text-align: center;
     }
   }
   .card-container {
     overflow: hidden;
-    column-count: 3;
-    -webkit-column-count: 3;
-    -moz-column-count: 3;
+    display: flex;
+    flex-direction: row;
+    ///flex-basis: 200px;
+
     @media (max-width: 1200px) {
       column-count: 2;
       -webkit-column-count: 2;
@@ -32,6 +34,8 @@
       margin: 10px auto;
       display: inline-block;
       width: 100%;
+      max-width: 35%;
+      max-height: 35%;
       .card {
         -webkit-transition-duration: 0.8s;
         -moz-transition-duration: 0.8s;
@@ -51,13 +55,14 @@
         .img-wrap {
           position: relative;
           overflow: hidden;
-          height: 200px;
+          max-height: 250px;
           @media (max-width: 576px) {
             display: none;
           }
           img {
             width: 100%;
-            height: 200px;
+            max-height: 300px;
+
             object-fit: cover;
           }
         }

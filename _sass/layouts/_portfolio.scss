@@ -94,7 +94,7 @@
           padding: 15px 0 15px 30px;
           p {
             font-weight: 600;
-            line-height: 0.8rem;
+            line-height: 1.5rem;
           }
           .date {
             font-size: 0.75rem;
@@ -128,12 +128,15 @@
     }
     .skills {
       padding-top: 35px;
+      display: flex;
+      flex-direction: column;
       ul.skill-list {
-        margin-top: 20px;
-        margin-left: 3%;
+        margin-top: 10px;
+        display: flex;
+        flex-direction: row;
         list-style-type: none;
         li.skill {
-          margin: 18px auto;
+          margin-right: 20px;
           .name {
             padding-left: 5px;
             font-size: 0.85rem;
@@ -174,6 +177,57 @@
         }
         to {
           width: 100%;
+        }
+      }
+      padding-top: 2px;
+      ul.edu-list {
+        margin-top: 25px;
+        margin-left: 3%;
+        border-left: 5px solid $theme-color;
+        list-style-type: none;
+        li {
+          animation-name: fadein;
+          animation-duration: 1s;
+          animation-timing-function: ease-in-out;
+          -webkit-animation-name: fadein;
+          -webkit-animation-duration: 1s;
+          -webkit-animation-timing-function: ease-in-out;
+        }
+        li.meta {
+          position: relative;
+          padding: 15px 0 15px 30px;
+          p {
+            font-weight: 600;
+            line-height: 1.5rem;
+          }
+          .date {
+            font-size: 0.75rem;
+            color: rgba(0, 0, 0, 0.5);
+          }
+          .description {
+            font-size: 1rem;
+          }
+        }
+        li.meta::before {
+          content: "";
+          position: absolute;
+          width: 15px;
+          height: 15px;
+          top: 42%;
+          left: -10px;
+          background-color: $theme-color;
+          border-radius: 50%;
+        }
+      
+        @keyframes fadein {
+          from {
+            transform: translateY(-10%);
+            opacity: 0;
+          }
+          to {
+            transform: translateY(0%);
+            opacity: 1;
+          }
         }
       }
     }

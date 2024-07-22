@@ -19,7 +19,7 @@ layout: page
         <ul id="icons">
           {% include icons.html %}
         </ul>
-        <a href="https://drive.google.com/file/d/1SMVR-lFTUYDH_9sHavMFK5IeB3itqcR1/view?usp=sharing">
+        <a href="https://drive.google.com/file/d/1SMVR-lFTUYDH_9sHavMFK5IeB3itqcR1/view?usp=sharing" target="_blank">
           <p class="resumePdf">
             OFFICIAL RESUME LINK
           </p>
@@ -47,14 +47,19 @@ layout: page
         {% for _ in profile.skills %}
         <li class="skill">
           <p class="name">{{ _.skill }}</p>
-          <div class="progress">
-            <div class="progress-bar" style="width: {{ _.value }}%">
-              <div class="progress-value">{{ _.value }}%</div>
-            </div>
-          </div>
         </li>
         {% endfor %}
       </ul>
+      <p class="title">EDUCATION</p>
+        <ul class="edu-list">
+          {% for exp in  profile.education %}
+          <li class="meta">
+            <p class="date">{{ exp.start }} ~ {{ exp.end }}</p>
+            <p class="description">{{ exp.school }}</p>
+            <p class="description">{{ exp.degree }}</p>
+          </li>
+          {% endfor %}
+        </ul>
     </article>
   </section>
 

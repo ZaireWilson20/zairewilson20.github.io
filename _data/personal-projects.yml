@@ -1,0 +1,15 @@
+- project :
+    print : True # If 'False' is selected, it will not be displayed in 'home.html > aside > .proj-content'. 
+    modal : True # If 'True' is selected, modal can open in 'portfolio.html'. 
+    url : https://zwilson20.itch.io/grocery-run # Full URL
+    image : "GroceryRunCover.png" # path: assets/project/
+    date : 01/2021 - 05/2021
+    title : Grocery Run
+    summary : Master's Thesis Project
+    description : Auxiliary component of my Master's Thesis project "Signifyin’ Through Games".
+    contents :
+        - title : Contributions
+          image : 
+          description : <li>In Game Level Editor</li>
+            <li>Character Animations</li> 
+            <li>Order Completion System</li>

@@ -1,0 +1,42 @@
+- project :
+    print : True # If 'False' is selected, it will not be displayed in 'home.html > aside > .proj-content'. 
+    modal : True # If 'True' is selected, modal can open in 'portfolio.html'. 
+    url : https://www.golfplusvr.com/ # Full URL
+    image : "Golf+Image.png" # path: assets/project/
+    date : 02/2022 - 06/2024
+    title : Golf+
+    summary : Software Engineer - Gameplay
+    description : Top 25 selling live-service VR golf simulation game for the Oculus platform
+    contents :
+        - title : Gameplay Team Member
+          image : 
+          description : <li>Collaborated with art, product, and player success teams, to translate stakeholder requirements into in-game features, ensuring alignment with project goals and timelines.</li>
+            <li>Conducted regular bug fixing and performance optimization, contributing to the game's consistent high ranking and user satisfaction.</li> 
+        - title : Gameplay Systems
+          image : 
+          description : <li>Penalty relief system - collaborated with the graphics team to create realistic penalty drops in accordance with official golf rules.</li> 
+            <li>Social/Friend panel and interactions.</li> 
+            <li>In-game daily tournaments.</li>
+            <li>Relief from TIOs(Temporary Immovable Objects).</li>
+            <li>Accidental Hit detection based on controller swing physics and other contextual variables.</li>
+            <li>Multiplayer lobby interactions, implementing propietary socet service and backend APIs</li>
+        - title : Tools
+          image :
+          description : <li>In Game "Gizmos" to help non engineering devs(QA, Product, Community team) visualize gameplay systems.</li>
+            <li>Event Logging for Data Analytics and Debugging through analytic software Amplitude's API.</li>
+            <li>Shell scripting to allow Slack commands to trigger processes on build server.</li>
+- project :
+    print : True # If 'False' is selected, it will not be displayed in 'home.html > aside > .proj-content'. 
+    modal : True # If 'True' is selected, modal can open in 'portfolio.html'. 
+    url : https://mathpsych.org/presentation/1226#/document # Full URL
+    image : "JAG_GIF.gif" # path: assets/project/
+    date : 05/2019 - 01/2020
+    title : The JAG - Role Stability and Team Performance in a 4-Player Cooperative Cooking Game
+    summary : Undergraduate Reseach Assistant
+    description : Game Developed under Dr. Wayne D. Gray at Rensellaer Polytechnic Institute to help aid Cognitive Science reseach into CAT(Cooperative Action Task).
+    contents :
+        - title : Contributions
+          image : 
+          description : <li>In Game Level Editor</li>
+            <li>Character Animations</li> 
+            <li>Order Completion System</li>

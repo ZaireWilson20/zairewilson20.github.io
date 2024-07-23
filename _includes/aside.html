@@ -16,6 +16,7 @@
 </div>
 <!-- Tag Navigation -->
 <div id="tag-wrap">
+  {% if site.tags.size > 0 %}
   <a href="{{ site.url }}/tags">
     <p class="title">TAGS</p>
   </a>
@@ -24,11 +25,12 @@
     <span class="tag">{{ tag | first }}</span>
   </a>
   {% endfor %}
+  {% endif %}
 </div>
 <!-- Project -->
 <div id="proj-wrap">
   <a href="{{ site.url }}/portfolio">
-    <p class="title">RESUME + PROJECTS 🙋🏽‍♂️</p>
+    <p class="title">PORTFOLIO 🙋🏽‍♂️</p>
     <hr class="proj-hr">
     {% for _ in site.data.projects %}
     {% assign project = _.project %}

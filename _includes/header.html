@@ -6,7 +6,7 @@
       {% case current[0] %}
       {% when 'tags'%}
       <!-- tags -->
-      <a href="{{ site.url }}">
+      <a href="{{ site.url }}/blog">
         <li class="btn-nav">Blog</li>
       </a>
       <li class="current">Tags</li>
@@ -15,23 +15,27 @@
       </a>
       <!-- portfolio -->
       {% when 'portfolio'%}
-      <a href="{{ site.url }}">
+      <a href="{{ site.url }}/blog">
         <li class="btn-nav">Blog</li>
       </a>
+      {% if site.tags.size > 0 %}
       <a href="{{ site.url }}/tags">
         <li class="btn-nav">Tags</li>
       </a>
+      {% endif %}
       <li class="current">Portfolio</li>
       {% else %}
       <!-- others -->
-      <a href="{{ site.url }}">
-        <li class="current btn-nav">Blog</li>
+      <a href="{{ site.url }}/blog">
+        <li class="btn-nav">Blog</li>
       </a>
+      {% if site.tags.size > 0 %}
       <a href="{{ site.url }}/tags">
         <li class="btn-nav">Tags</li>
       </a>
+      {% endif %}
       <a href="{{ site.url }}/portfolio">
-        <li class="btn-nav">Portfolio</li>
+        <li class="current btn-nav">Portfolio</li>
       </a>
       {% endcase %}
     </ul>

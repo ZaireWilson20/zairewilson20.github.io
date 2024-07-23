@@ -10,13 +10,13 @@ layout: default
     <h1>{{ site.theme_settings.title }}</h1>
   </section>
   <section class="bg"></section>
-  <div class="row">
+  <div class="home">
     <!-- Aside Navigation  -->
     <aside id="aside" class="col-md-4">
       {% include aside.html %}
     </aside>
     <!-- Post List -->
-    <section id="posts" class="col-md-8">
+    <section id="posts">
       {% for post in paginator.posts %}
       <div class="post">
         <a href="{{ post.url | relative_url }}">
@@ -51,6 +51,10 @@ layout: default
           </div>
         </a>
       </div>
+      {% else %}
+      <div class="comingSoon">
+        UNDER CONSTRUCTION, COMING SOON!
+      </div> 
       {% endfor %}
       <!-- Pagination -->
       {% if paginator.total_pages > 1 %}

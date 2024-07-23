@@ -68,6 +68,10 @@
     @extend %page-padding;
     margin-bottom: 55px;
     margin-top: 55px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
     .title {
       margin-top: 15px;
       color: $theme-dark;

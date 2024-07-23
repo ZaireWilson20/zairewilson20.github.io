@@ -30,8 +30,8 @@ layout: page
     <div class="bg"></div>
   </section>
   <!-- career section -->
-  <section id="career" class="row">
-    <article class="exper col-12 col-md-6">
+  <section id="career">
+    <article class="exper">
       <p class="title">EXPERIENCE</p>
       <ul class="exper-list">
         {% for exp in  profile.experience %}
@@ -42,7 +42,7 @@ layout: page
         {% endfor %}
       </ul>
     </article>
-    <article class="skills col-12 col-md-6">
+    <article class="skills">
       <p class="title">SKILLS</p>
       <ul class="skill-list">
         {% for _ in profile.skills %}

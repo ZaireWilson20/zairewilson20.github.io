@@ -40,18 +40,6 @@
           color: $theme-dark;
         }
       }
-      .resumePdf{
-        margin-top: 15px;
-        background-color: #fff;
-        color: $theme-color;
-        border-radius: 40px;
-        padding: 20px;
-        width: fit-content;
-        font-weight: 600;
-      }
-      .resumePdf:hover {
-        background-color: #dadada;
-      }
     }
 
     .bg {
@@ -63,15 +51,34 @@
       top: -55px;
       background-color: $theme-dark;
     }
+
+    .btn-wrap{
+      width: auto;
+      .resumePdf{
+        background-color: #fff;
+        color: $theme-color;
+        border-radius: 40px;
+        padding: 20px;
+        width: fit-content;
+        font-weight: 600;
+        text-align: center;
+      }
+      .resumePdf:hover {
+        background-color: #dadada;
+      }
+    }
+
   }
   #career {
     @extend %page-padding;
     margin-bottom: 55px;
     margin-top: 55px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    flex-wrap: wrap;
+    width: fit-content;
+    //display: flex;
+    //flex-direction: row;
+    //justify-content: space-around;
+    //align-items: center;
+    //flex-wrap: wrap;
     .title {
       margin-top: 15px;
       color: $theme-dark;
@@ -94,6 +101,7 @@
           -webkit-animation-timing-function: ease-in-out;
         }
         li.meta {
+          text-wrap: pretty;
           position: relative;
           padding: 15px 0 15px 30px;
           p {
@@ -132,19 +140,21 @@
     }
     .skills {
       padding-top: 35px;
-      display: flex;
-      flex-direction: column;
+      //display: flex;
+      //flex-direction: column;
       ul.skill-list {
         margin-top: 10px;
-        display: flex;
-        flex-direction: row;
+        //display: flex;
+        //flex-direction: row;
         list-style-type: none;
         li.skill {
           margin-right: 20px;
+          width: fit-content;
           .name {
             padding-left: 5px;
             font-size: 0.85rem;
             font-weight: 600;
+            width: fit-content;
           }
           .progress {
             position: relative;
@@ -184,6 +194,10 @@
         }
       }
       padding-top: 2px;
+    }
+    .education{
+      padding-top: 35px;
+      
       ul.edu-list {
         margin-top: 25px;
         margin-left: 3%;
@@ -200,6 +214,7 @@
         li.meta {
           position: relative;
           padding: 15px 0 15px 30px;
+          text-wrap: pretty;
           p {
             font-weight: 600;
             line-height: 1.5rem;

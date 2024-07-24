@@ -6,10 +6,8 @@
     date : 01/2021 - 05/2021
     title : Grocery Run
     summary : Master's Thesis Project
-    description : Auxiliary component of my Master's Thesis project "Signifyin’ Through Games".
+    description : Auxiliary component of my master's thesis project "Signifyin’ Through Games".
     contents :
-        - title : Contributions
+        - title : 
           image : 
-          description : <li>In Game Level Editor</li>
-            <li>Character Animations</li> 
-            <li>Order Completion System</li>
+          description : Grocery Run is a game that was developed as an auxiliary component of my Master's Thesis project "Signifyin’ Through Games". While the thesis as a whole addresses the use of African American humor as a form of representation in games, Grocery Run was made as a way to test some of the questions outlined in the thesis. In Grocery Run, the player is an unnamed African American male, and their goal is to collect items at a grocery store before time runs out. The catch is that the player has to also do this while avoiding <a href=https://en.wikipedia.org/wiki/Karen_(slang)#:~:text=Karen%20is%20a%20slang%20term,to%20demand%20their%20own%20way%22.>"Karens"</a> who patrol the store.

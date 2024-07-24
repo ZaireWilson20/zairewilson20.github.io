@@ -1,11 +1,11 @@
 <section id="project">
-  <div class="project-wrap">
+  <div class="project-wrap container-fluid">
     <p class="title">PROFESSIONAL PROJECTS 🙋🏽‍♂️</p>
-    <div class="card-container">
+    <div class="card-container row">
       {% for _ in site.data.professional-projects %}
       {% assign project = _.project %}
       {% assign id = id | plus: 1 %}
-      <div class="card-wrapper">
+      <div class="card-wrapper col-xl-4 col-lg-6 col-sm-12">
         <div class="card">
           {% if project.image %}
           <div class="img-wrap" >
@@ -46,11 +46,11 @@
       {% endfor %}
     </div>
     <p class="title">PERSONAL PROJECTS 😎</p>
-    <div class="card-container">
+    <div class="card-container row">
       {% for _ in site.data.personal-projects %}
       {% assign project = _.project %}
       {% assign id = id | plus: 1 %}
-      <div class="card-wrapper">
+      <div class="card-wrapper col-xl-4 col-lg-6 col-sm-12">
         <div class="card">
           {% if project.image %}
           <div class="img-wrap">

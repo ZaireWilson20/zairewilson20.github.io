@@ -7,22 +7,26 @@ layout: page
 </div><!-- This Tag means End .container -->
 <div id="protfolio">
   <section id="about-me">
-    <div class="row">
-      <div class="img-wrap col-12 col-md-4">
-        <div class="img">
-          <img src="{{ site.baseurl }}/{{ profile.image }}" alt="user_image">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="img-wrap col-12 col-md-4">
+          <div class="img">
+            <img src="{{ site.baseurl }}/{{ profile.image }}" alt="user_image">
+          </div>
+        </div>
+        <div class="text-wrap col-12 col-md-8">
+          <h2 class="username">{{ profile.username }}</h2>
+          <p class="description">{{ profile.description }}</p>
+
+          <ul id="icons">
+            {% include icons.html %}
+          </ul>
         </div>
       </div>
-      <div class="text-wrap col-12 col-md-8">
-        <h2 class="username">{{ profile.username }}</h2>
-        <p class="description">{{ profile.description }}</p>
-
-        <ul id="icons">
-          {% include icons.html %}
-        </ul>
-        <a href="https://drive.google.com/file/d/1SMVR-lFTUYDH_9sHavMFK5IeB3itqcR1/view?usp=sharing" target="_blank">
+      <div class="row justify-content-center">
+        <a href="https://drive.google.com/file/d/1SMVR-lFTUYDH_9sHavMFK5IeB3itqcR1/view?usp=sharing" target="_blank"  class="btn-wrap col-4" style="padding-left: 0;">
           <p class="resumePdf">
-            OFFICIAL RESUME LINK
+            RESUME LINK
           </p>
         </a>
       </div>
@@ -30,39 +34,48 @@ layout: page
     <div class="bg"></div>
   </section>
   <!-- career section -->
-  <section id="career">
-    <article class="exper">
-      <p class="title">EXPERIENCE</p>
-      <ul class="exper-list">
-        {% for exp in  profile.experience %}
-        <li class="meta">
-          <p class="date">{{ exp.start }} ~ {{ exp.end }}</p>
-          <p class="description">{{ exp.experience }}</p>
-        </li>
-        {% endfor %}
-      </ul>
-    </article>
-    <article class="skills">
-      <p class="title">SKILLS</p>
-      <ul class="skill-list">
-        {% for _ in profile.skills %}
-        <li class="skill">
-          <p class="name">{{ _.skill }}</p>
-        </li>
-        {% endfor %}
-      </ul>
-      <p class="title">EDUCATION</p>
-        <ul class="edu-list">
-          {% for exp in  profile.education %}
-          <li class="meta">
-            <p class="date">{{ exp.start }} ~ {{ exp.end }}</p>
-            <p class="description">{{ exp.school }}</p>
-            <p class="description">{{ exp.degree }}</p>
-          </li>
-          {% endfor %}
-        </ul>
-    </article>
-  </section>
+  <div class="container-fluid">
+    <section id="career" class="row justify-content-center">
+        <article class="exper col-xl-4 col-sm-auto" style="width: 100%;">
+          <p class="title">EXPERIENCE</p>
+          <ul class="exper-list">
+            {% for exp in  profile.experience %}
+            <li class="meta">
+              <p class="date">{{ exp.start }} ~ {{ exp.end }}</p>
+              <p class="description">{{ exp.experience }}</p>
+            </li>
+            {% endfor %}
+          </ul>
+        </article>
+        <article class="education col-xl-4 col-sm-auto" style="width: 100%;">
+          <p class="title">EDUCATION</p>
+            <ul class="edu-list">
+              {% for exp in  profile.education %}
+              <li class="meta col">
+                <p class="date">{{ exp.start }} ~ {{ exp.end }}</p>
+                <p class="description">{{ exp.school }}</p>
+                <p class="description">{{ exp.degree }}</p>
+              </li>
+              {% endfor %}
+            </ul>
+        </article>
+        <div class="container">
+          <article class="skills row">
+            <div class="col-12">
+              <p class="title">SKILLS</p>
+              <ul class="skill-list row">
+                {% for _ in profile.skills %}
+                <li class="skill col-sm-auto">
+                  <p class="name">{{ _.skill }}</p>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </article>
+        </div>
+    </section>
+  </div>
+
 
   {% include projects.html %}
 </div>

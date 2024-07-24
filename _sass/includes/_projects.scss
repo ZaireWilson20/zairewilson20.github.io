@@ -15,9 +15,10 @@
   }
   .card-container {
     overflow: hidden;
-    display: flex;
-    flex-direction: row;
-    ///flex-basis: 200px;
+    //display: flex;
+    //flex-direction: row;
+    //flex-wrap: wrap;
+    //flex-basis: 150px;
 
     @media (max-width: 1200px) {
       column-count: 2;
@@ -33,9 +34,6 @@
       padding: 8px 10px;
       margin: 10px auto;
       display: inline-block;
-      width: 100%;
-      max-width: 35%;
-      max-height: 35%;
       .card {
         -webkit-transition-duration: 0.8s;
         -moz-transition-duration: 0.8s;

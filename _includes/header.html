@@ -23,8 +23,8 @@
         <li class="btn-nav">Tags</li>
       </a>
       {% endif %}
-      <li class="current">Portfolio</li>
-      {% else %}
+      <li class="current btn-nav">Portfolio</li>
+      {% when 'blog' %}
       <!-- others -->
       <a href="{{ site.url }}/blog">
         <li class="current btn-nav">Blog</li>
@@ -36,6 +36,19 @@
       {% endif %}
       <a href="{{ site.url }}/portfolio">
         <li class="btn-nav">Portfolio</li>
+      </a>
+      {% else %}
+      <!-- others -->
+      <a href="{{ site.url }}/blog">
+        <li class="current btn-nav">Blog</li>
+      </a>
+      {% if site.tags.size > 0 %}
+      <a href="{{ site.url }}/tags">
+        <li class="btn-nav">Tags</li>
+      </a>
+      {% endif %}
+      <a href="{{ site.url }}/portfolio">
+        <li class="current btn-nav">Portfolio</li>
       </a>
       {% endcase %}
     </ul>

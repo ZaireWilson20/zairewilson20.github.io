@@ -1,13 +1,14 @@
 #post{
     @extend %page-padding;
     .post-header{
-        padding-bottom : 60px;
+        padding-bottom : 40px;
         text-align: center;
         .title{
             margin-bottom: 0px;
         }
         .subtitle{
             font-size : 1.2rem;
+            //font-style: italic;
         }
         .meta{
             color : $text-gray;
@@ -22,6 +23,10 @@
             line-height: 2.0em;
             target: "_blank";
         }
+    }
+    h2{
+        text-align: center;
+        margin-top: 30px;
     }
 
 }

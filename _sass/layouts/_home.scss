@@ -1,4 +1,10 @@
 #home {
+    height: 100%;
+    .home{
+        display: flex;
+        flex-direction: row;
+        height: 100%;
+    }
     #aside{
         display:block;
         @media (max-width: 991px) {
@@ -33,6 +39,9 @@
     }
     #posts {
         @extend %posts-padding;
+        display: flex;
+        flex-direction: column;
+        align-self: center;
         .post{
             width: 100%;
             overflow: hidden;
@@ -87,6 +96,11 @@
                     }
                 }
             }
+        }
+        .comingSoon {
+            font-size: 3rem;
+            text-align: center;
+            align-self: center;
         }
         .post:hover{
             .text-warp {

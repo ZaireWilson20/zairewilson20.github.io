@@ -13,7 +13,6 @@
       {% if project.image %}
       <img src="{{ site.url }}/assets/project/{{ project.image }}" alt="">
       {% endif%}
-      <div class="description">{{ project.description }}</div>
       {% for content in project.contents %}
       <div class="sub-content">
         <div class="title">{{ content.title }}</div>

@@ -1,11 +1,11 @@
 <section id="project">
-  <div class="project-wrap">
+  <div class="project-wrap container-fluid">
     <p class="title">PROFESSIONAL PROJECTS 🙋🏽‍♂️</p>
-    <div class="card-container">
+    <div class="card-container row">
       {% for _ in site.data.professional-projects %}
       {% assign project = _.project %}
       {% assign id = id | plus: 1 %}
-      <div class="card-wrapper">
+      <div class="card-wrapper col-xl-4 col-lg-6 col-sm-12">
         <div class="card">
           {% if project.image %}
           <div class="img-wrap" >
@@ -30,12 +30,10 @@
           <div class="icons">
             {% if project.url %}
             {% assign url = project.url %}
-            <a href="{{ url }}/subscription"><i class="far fa-eye"></i></a>
-            <a href="{{ url }}"><i class="fas fa-star"></i></a>
-            <a href="{{ url }}/fork"><i class="fas fa-code-branch"></i></a>
+            <a href="{{ url }}"><i class="fas fa-link"></i></a>
             {% endif %}
             {% if project.modal %}
-            <a title="{{ id }}" onClick="open_modal(this.title)" class="modal-btn"><i class="fas fa-plus"></i></a>
+            <a title="{{ id }}" target="_blank" onClick="open_modal(this.title)" class="modal-btn"><i class="fas fa-plus"></i></a>
             {% endif %}
           </div>
         </div>
@@ -48,11 +46,11 @@
       {% endfor %}
     </div>
     <p class="title">PERSONAL PROJECTS 😎</p>
-    <div class="card-container">
+    <div class="card-container row">
       {% for _ in site.data.personal-projects %}
       {% assign project = _.project %}
       {% assign id = id | plus: 1 %}
-      <div class="card-wrapper">
+      <div class="card-wrapper col-xl-4 col-lg-6 col-sm-12">
         <div class="card">
           {% if project.image %}
           <div class="img-wrap">
@@ -77,9 +75,7 @@
           <div class="icons">
             {% if project.url %}
             {% assign url = project.url %}
-            <a href="{{ url }}/subscription"><i class="far fa-eye"></i></a>
-            <a href="{{ url }}"><i class="fas fa-star"></i></a>
-            <a href="{{ url }}/fork"><i class="fas fa-code-branch"></i></a>
+            <a href="{{ url }}" target="_blank"><i class="fas fa-link"></i></a>
             {% endif %}
             {% if project.modal %}
             <a title="{{ id }}" onClick="open_modal(this.title)" class="modal-btn"><i class="fas fa-plus"></i></a>

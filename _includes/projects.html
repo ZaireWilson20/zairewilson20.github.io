@@ -6,37 +6,38 @@
       {% assign project = _.project %}
       {% assign id = id | plus: 1 %}
       <div class="card-wrapper col-xl-4 col-lg-6 col-sm-12">
-        <div class="card">
-          {% if project.image %}
-          <div class="img-wrap" >
-            <img src="{{ site.url }}/assets/project/{{ project.image }}" alt="" >
-          </div>
-          {% endif %}
-          <div class="text-wrap {% if project.image %}{% endif %}">
-            <div class="title-wrap">
-              <p class="date">{{ project.date }}</p>
-              <div class="title">{{ project.title }}</div>
+          <div class="card">
+            {% if project.image %}
+            <div class="img-wrap">
+              <img src="{{ site.url }}/assets/project/{{ project.image }}" alt="">
             </div>
-            <div class="meta">
-              {% if project.skills %}
-              &middot;
-              {% for skill in project.skills %}
-              <span>#{{ skill }}</span>
-              {% endfor %}
+            {% endif %}
+            <div class="text-wrap {% if project.image %}{% endif %}">
+              <div class="title-wrap">
+                <p class="date">{{ project.date }}</p>
+                <div class="title">{{ project.title }}</div>
+              </div>
+              <div class="meta">
+                {% if project.skills %}
+                &middot;
+                {% for skill in project.skills %}
+                <span>#{{ skill }}</span>
+                {% endfor %}
+                {% endif %}
+              </div>
+              <div class="description">{{ project.description }}</div>
+            </div>
+            <div class="icons">
+              {% if project.url %}
+              {% assign url = project.url %}
+              <a href="{{ url }}"><i class="fas fa-link"></i></a>
+              {% endif %}
+              {% if project.modal %}
+              <a title="{{ id }}"type="button" class="card-btn first" onClick="open_modal(this.title)">More Info</a>
+              <!-- <a title="{{ id }}" onClick="open_modal(this.title)" class="modal-btn"><i class="fas fa-plus"></i></a> -->
               {% endif %}
             </div>
-            <div class="description">{{ project.description }}</div>
           </div>
-          <div class="icons">
-            {% if project.url %}
-            {% assign url = project.url %}
-            <a href="{{ url }}"><i class="fas fa-link"></i></a>
-            {% endif %}
-            {% if project.modal %}
-            <a title="{{ id }}" target="_blank" onClick="open_modal(this.title)" class="modal-btn"><i class="fas fa-plus"></i></a>
-            {% endif %}
-          </div>
-        </div>
       </div>
       <!-- Modal Box -->
       {% if project.modal %}
@@ -78,7 +79,7 @@
             <a href="{{ url }}" target="_blank"><i class="fas fa-link"></i></a>
             {% endif %}
             {% if project.modal %}
-            <a title="{{ id }}" onClick="open_modal(this.title)" class="modal-btn"><i class="fas fa-plus"></i></a>
+            <a title="{{ id }}"type="button" class="card-btn first" onClick="open_modal(this.title)">More Info</a>
             {% endif %}
           </div>
         </div>

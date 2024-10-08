@@ -34,46 +34,6 @@ layout: page
     <div class="bg"></div>
   </section>
   <!-- career section -->
-  <div class="container-fluid">
-    <section id="career" class="row justify-content-center">
-        <article class="exper col-xl-4 col-sm-auto" style="width: 100%;">
-          <p class="title">EXPERIENCE</p>
-          <ul class="exper-list">
-            {% for exp in  profile.experience %}
-            <li class="meta">
-              <p class="date">{{ exp.start }} ~ {{ exp.end }}</p>
-              <p class="description">{{ exp.experience }}</p>
-            </li>
-            {% endfor %}
-          </ul>
-        </article>
-        <article class="education col-xl-4 col-sm-auto" style="width: 100%;">
-          <p class="title">EDUCATION</p>
-            <ul class="edu-list">
-              {% for exp in  profile.education %}
-              <li class="meta col">
-                <p class="date">{{ exp.start }} ~ {{ exp.end }}</p>
-                <p class="description">{{ exp.school }}</p>
-                <p class="description">{{ exp.degree }}</p>
-              </li>
-              {% endfor %}
-            </ul>
-        </article>
-        <div class="container">
-          <article class="skills row">
-            <div class="col-12">
-              <p class="title">SKILLS</p>
-              <ul class="skill-list row">
-                {% for _ in profile.skills %}
-                <li class="skill col-sm-auto">
-                  <p class="name">{{ _.skill }}</p>
-                </li>
-                {% endfor %}
-              </ul>
-            </div>
-          </article>
-        </div>
-    </section>
   </div>
 
 

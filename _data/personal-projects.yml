@@ -3,11 +3,27 @@
     modal : True # If 'True' is selected, modal can open in 'portfolio.html'. 
     url : https://zwilson20.itch.io/grocery-run # Full URL
     image : "GroceryRunCover.png" # path: assets/project/
-    date : 01/2021 - 05/2021
+    date : 01/2021 - present
     title : Grocery Run
     summary : Master's Thesis Project
     description : Auxiliary component of my master's thesis project "Signifyin’ Through Games".
     contents :
-        - title : 
+        - title : Grocery Run (2021, Unity)
+          image : "GRVid.gif"
+          description : <p>Originally developed as part of my Master's Thesis "Signifyin’ Through Games," Grocery Run explores African American humor in games. The player, an unnamed Black man, must collect items in a grocery store while avoiding patrolling "Karens".</p>
+            <li><b>Thesis Project Integration</b> - Designed and developed the game as an interactive demonstration of how African American humor and culture can be represented in games, supporting the academic goals of my thesis.</li> 
+            <li><b>2D Gameplay Design</b> - Built a side-scrolling 2D environment in Unity, focusing on fast-paced item collection mechanics under time constraints, while introducing the obstacle of NPCs (Karens) who disrupt the player’s progress.</li> 
+            <li><b>AI Pathfinding and Behavior</b> - Implemented NPC AI in Unity to create Karens with patrol and chase behaviors, using Unity's NavMesh to allow dynamic pathfinding based on player location.</li>
+            <li><b>Collision and Interaction System</b> - Developed a system for player-NPC interactions where getting too close to a Karen triggers a loss of time, forcing the player to balance between item collection and evasion.</li>
+        - title : Grocery Run VR (2023 - present, Unreal Engine 5)
           image : 
-          description : Grocery Run is a game that was developed as an auxiliary component of my Master's Thesis project "Signifyin’ Through Games". While the thesis as a whole addresses the use of African American humor as a form of representation in games, Grocery Run was made as a way to test some of the questions outlined in the thesis. In Grocery Run, the player is an unnamed African American male, and their goal is to collect items at a grocery store before time runs out. The catch is that the player has to also do this while avoiding <a href=https://en.wikipedia.org/wiki/Karen_(slang)#:~:text=Karen%20is%20a%20slang%20term,to%20demand%20their%20own%20way%22.>"Karens"</a> who patrol the store.
+          description : <p>Redeveloping Grocery Run in VR using Unreal Engine 5. Keeping the core gameplay of collecting groceries and dogdging "Karens", while also adding components that leverage the systems provided by Unreal Engine and OpenXR. Here’s a breakdown of some of the features and challenges I’ve tackled so far:</p>
+            <li><b>Transition to VR Gameplay</b> - Redesigned the game from a 2D Unity project into a 3D Unreal Engine environment, introducing new mechanics for depth and spatial awareness.</li> 
+            <li><b>Modular AI System</b> -  Implemented a flexible state machine in Unreal Engine to handle Karen AI, allowing for easy expansion of NPC behaviors (Idle, Patrol, Chase) through Blueprints and Data Assets, minimizing C++ rewrites.</li> 
+            <li><b>Event-driven Interaction</b> -  Set up a dynamic event system that notifies Karens of player actions (running or triggering in-game events), ensuring coordinated AI responses without relying on global variables.</li>
+            <li><b>Procedural Generation Algorithm Implementation</b> - Using proc-gen algorithms(i.e. Perlin Noise) to create procedural gameplay behavior and generate levels(i.e. grocery placement) at runtime.</li>
+          blogPosts :
+              - title: 'Making Karen Manageable: A Modular State Machine Design'
+                tag: 
+                url: 2024/08/27/grocery-run-state-machine.html
+            

@@ -10,9 +10,6 @@
       <p class="summary">{{ project.summary }}</p>
     </div>
     <div class="content">
-      {% if project.image %}
-      <img src="{{ site.url }}/assets/project/{{ project.image }}" alt="">
-      {% endif%}
       {% for content in project.contents %}
       <div class="sub-content">
         <div class="title">{{ content.title }}</div>
@@ -20,6 +17,16 @@
         <img src="{{ site.url }}/assets/project/{{ content.image }}" alt="{{ content.title }}">
         {% endif %}
         <div class="description">{{ content.description }}</div>
+        {% if content.blogPosts %}
+        <div class="blogPosts"> 
+          <div class="pref">If you're interested in learning more about my development process, check out these blog posts:</div>
+          <ul>
+          {% for blog in content.blogPosts %}
+          <a class="post" href="{{ site.url }}/{{ blog.url }}"><li>{{ blog.title }}</li></a>
+          {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
       </div>
       {% endfor %}
     </div>

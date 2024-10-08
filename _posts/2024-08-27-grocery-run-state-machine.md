@@ -156,25 +156,22 @@ class UTransition : public UObject
 
 ### Making Karen Rationally Irrational
 Now that we’ve got all the pieces in place—Data Assets, State Machine components, and how states and transitions are defined—it’s time to show how this logic actually gets wired up in Blueprints to make our Karen character behave like the true chaotic force she is.
-
+\
+\
 In Grocery Run, all the hard-coded logic and state behaviour exists in C++—but thanks to the power of Data Assets and Blueprints, I don’t have to write more C++ to implement new behaviours or transitions. Instead, I have the option to handle it all visually within the Blueprint editor. Let's walk through how it works. 
 
 ### Defining State behaviours in Blueprints
-After the State Machine component is attached to Karen’s Actor, I use Blueprints to bind custom behaviour to each state’s OnEnter, OnUpdate, and OnExit events. For example, when Karen enters the Patrol state, I use Blueprints to bind the function that makes her move to the next patrol point to **OnEnter** and to bind the update for adjusting Karen's walk/run animations based on her speed to **OnUpdate**. These behaviours are tied directly to the events exposed by the State UObjects.
+After the State Machine component is attached to Karen’s Actor, I use Blueprints to bind custom behaviour to each state’s OnEnter, OnUpdate, and OnExit events. For example, when Karen enters the Patrol state, I use Blueprints to bind the function that moves her to the next patrol point to the **OnEnter** event, and also to bind the function that adjusts her walk/run animations based on her speed to the **OnUpdate** event.
 {% include image.html url="/assets/img/PatrolStateBehaviourBlueprint.png" description="Blueprint showing the Patrol State's OnEnter, OnUpdate, and OnExit events being binded to behaviour" %} 
 
-
 ### Setting Up Transition Validations 
-For transitions, I use Blueprints to bind **Validation Functions** that check conditions for when to move from one state to another. These conditions aren’t hardcoded into the State Machine—they’re defined and managed externally, allowing the system to remain flexible and easy to adjust.
-
-Let’s take the IdleToChase transition as an example. Karen transitions from Idle to Chase when either of the following two conditions are met:
+For transitions, I use Blueprints to bind **Validation Functions** that check conditions for when to move from one state to another. Let’s take the IdleToChase transition as an example. Karen transitions from Idle to Chase when either of the following two conditions are met:
 
 1. **PlayerTriggeredKarenLineOfSight** – This condition becomes true when the player stays in Karen’s view radius for a specific amount of time.
 2. **AllKarensAlarmed** – This condition becomes true for all Karens in the scene if the player runs for a set amount of time or if the level time drops below a certain threshold.
 
 {% include image.html url="/assets/img/ValidateIdleToChaseBlueprint.png" description="Blueprint showing the Patrol State's OnEnter, OnUpdate, and OnExit events being binded to behaviour" %} 
-The conditions themselves are not embedded within the State Machine. Given the context of the KarenCharacter, If the player lingers in a Karen’s line of sight long enough or the player notifies all Karens through their event subscriptions, the transition to Chase is triggered. That said, the state machine could care less about what the conditions actually represent; the value(true or false) is the only thing that matters. This makes testing the state machine in isolation easy since I can mock any condition without having actually trigger them by manually creating the situations in game. Ultimately, all of this  allows me to tweak transition logic without altering any C++ code, preserving the flexibility and scalability of the system.  
-
+Given the context of the KarenCharacters, If the player lingers in a Karen’s line of sight long enough or the player notifies all Karens through their event subscriptions, the transition to Chase is triggered. That said, the state machine could care less about what the conditions actually represent; the value(true or false) is the only thing that matters. This makes testing the state machine in isolation easy since I can mock any condition without having actually trigger them by manually creating the situations in game.
 ### Big Picture
 Here’s how the entire setup for the state behaviour and transition logic looks in Blueprints: 
 {% include image.html url="/assets/img/BlueprintFSMHighlevel.png" description="Setup of the StateMachine Component in the KarenChacter Blueprint" %} 
@@ -185,7 +182,7 @@ In this Blueprint, I bind the validation for each state's transition and the beh
 Overall, building this flexible State Machine system has been a pretty big win for me. By separating the logic into manageable pieces and leveraging Unreal’s Data Assets and Blueprints, I can create complex, dynamic behaviours without constantly needing to rewrite C++ code. As a very busy man with a very busy schedule(ie. hitting Master tier in League), this setup has made development much smoother and faster.
 \
 \
-However, there are a few potential booboos I'm aware of. One challenge is that with the flexibility comes the risk of mismanagement—if too many complex conditions are added or not kept organized, the system can become difficult to debug or maintain. In addition, heavy reliance on Blueprints for behaviour can sometimes slow down performance compared to C++ if not optimized properly. So, while the Blueprint-C++ hybrid approach offers a lot of power, I definitely plan on balancing to avoid bloat. Also, I would not be surprised if a tool like this already exists in Unreal Engine -- if there's a more elegant approach, I'd most likely want to incorporate that into my current solution. That said, I still value the things I've learned while creating this system. 
+However, there are a few potential booboos I'm aware of. One challenge is that with the flexibility comes the risk of mismanagement—if too many complex conditions are added or not kept organized, the system can become difficult to debug or maintain. Although I'm not planning on making Karen's AI complex, I can definitely see how having 10+ states with a bunch of transitions between them would look pretty gnarly. In addition, heavy reliance on Blueprints for behaviour can sometimes slow down performance compared to C++ if not optimized properly. So, while the Blueprint-C++ hybrid approach offers a lot of power, I definitely plan on balancing to avoid bloat. Also, I would not be surprised if a tool like this already exists in Unreal Engine -- if there's a more elegant approach, I'd most likely want to incorporate that into my current solution. That said, I still value the things I've learned while creating this system. 
 \
 \
 All in all, while there are always ways to improve, this flexible system has laid the groundwork for building Karen encounters that are as unpredictable, dynamic and unecessary as they need to be. I’m excited to keep refining this and exploring new possibilities for making Grocery Run even more upsetting in the best way possible!

@@ -1,6 +1,30 @@
 - project :
     print : True # If 'False' is selected, it will not be displayed in 'home.html > aside > .proj-content'. 
     modal : True # If 'True' is selected, modal can open in 'portfolio.html'. 
+    url : https://fivemics.io/digital # Full URL
+    image : "FiveMicsCover.png" # path: assets/project/
+    date : 09/2022 - Present
+    title : Five Mics - The Hip Hop Trading Card Game
+    summary : Lead Engineer
+    description : Built from the ground up as both a physical and digital collectible card game inspired by hip-hop culture. Designed and implemented all gameplay systems, networking, and developer tools — from core battle logic to UI/UX and backend integration.
+    contents :
+        - title : Gameplay Systems
+          image : 
+          description : <li>Engineered a modular card ability system that defines abilities as triggers, conditions, and actions using ScriptableObjects.</li>
+            <li>Built a stack-based resolution system to handle complex ability interactions, timing conflicts, and chained effects.</li> 
+            <li>Implemented FishNet networking for authoritative server-side game logic. Clients send GameAction requests, the server validates + updates state, then syncs results back to clients for visual updates.</li>
+        - title : Tools & Pipeline
+          image : 
+          description : '<ul>Built custom Unity Editor tools for non-programmer designers, including:
+                        <li>Card Editor – rich inspector for building and editing card data, attributes, and serialized parameters.</li>
+                        <li>CardActionEditor – context-key output configuration for ability actions.</li>
+                        <li>DeckCreatorWindow – UI Toolkit-based deck-building interface for testing and iteration.</li>
+                        </ul>
+            <li>Engineered a containerized Web API hosted on DigitalOcean (Docker + Nginx) acting as a middleware between client and Edgegap for lobby management, server deployment, and build automation.</li> 
+            <li>Integrated Slack CI triggers for remote build kicks and server orchestration.</li>'
+- project :
+    print : True # If 'False' is selected, it will not be displayed in 'home.html > aside > .proj-content'. 
+    modal : True # If 'True' is selected, modal can open in 'portfolio.html'. 
     url : https://www.golfplusvr.com/ # Full URL
     image : "Golf+Image.png" # path: assets/project/
     date : 02/2022 - 06/2024
@@ -40,3 +64,4 @@
           description : <li>In Game Level Editor</li>
             <li>Character Animations</li> 
             <li>Order Completion System</li>
+

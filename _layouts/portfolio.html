@@ -24,7 +24,7 @@ layout: page
         </div>
       </div>
       <div class="row justify-content-center">
-        <a href="https://drive.google.com/file/d/12rnOXm9H2iapBiemr7DO5JKRpPaYsR7N/view?usp=sharing" target="_blank"  class="btn-wrap col-4" style="padding-left: 0;">
+        <a href="https://drive.google.com/file/d/1LzSuUHrMmvp9Jm8mooYciWyBgP7y3DGD/view?usp=sharing" target="_blank"  class="btn-wrap col-4" style="padding-left: 0;">
           <p class="resumePdf">
             RESUME LINK
           </p>
@@ -33,10 +33,11 @@ layout: page
     </div>
     <div class="bg"></div>
   </section>
+  {% include projects.html %}
   <!-- career section -->
   <div class="container-fluid">
     <section id="career" class="row justify-content-center">
-        <article class="exper col-xl-4 col-sm-auto" style="width: 100%;">
+        <article class="exper col-xl-4 col-sm-auto" style="justify-self: center;">
           <p class="title">EXPERIENCE</p>
           <ul class="exper-list">
             {% for exp in  profile.experience %}
@@ -47,7 +48,7 @@ layout: page
             {% endfor %}
           </ul>
         </article>
-        <article class="education col-xl-4 col-sm-auto" style="width: 100%;">
+        <article class="education col-xl-4 col-sm-auto" style="justify-self: center;">
           <p class="title">EDUCATION</p>
             <ul class="edu-list">
               {% for exp in  profile.education %}
@@ -59,23 +60,8 @@ layout: page
               {% endfor %}
             </ul>
         </article>
-        <div class="container">
-          <article class="skills row">
-            <div class="col-12">
-              <p class="title">SKILLS</p>
-              <ul class="skill-list row">
-                {% for _ in profile.skills %}
-                <li class="skill col-sm-auto">
-                  <p class="name">{{ _.skill }}</p>
-                </li>
-                {% endfor %}
-              </ul>
-            </div>
-          </article>
-        </div>
     </section>
   </div>
 
 
-  {% include projects.html %}
 </div>

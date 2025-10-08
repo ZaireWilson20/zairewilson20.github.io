@@ -28,23 +28,6 @@ theme_settings :
       - start : May 2019
         end : January 2020
         experience : Rensselaer Polytechnic Institute, Undergrad Researcher
-    skills : 
-      - skill : C#
-        value : 85  # Percent value       
-      - skill : Python
-        value : 80  # Percent value      
-      - skill : C++
-        value : 75  # Percent value      
-      - skill : Unity
-        value : 85  # Percent value      
-      - skill : Unreal
-        value : 60  # Percent value          
-      - skill : HTML5 & CSS
-        value : 50  # Percent       
-      - skill : XAML
-        value : 60  # Percent value
-      - skill : React.js
-        value : 60  # Percent value
     education :
       - start : August 2020
         end : May 2021

@@ -13,8 +13,14 @@ theme_settings :
     username : Zaire Wilson
     description : Programmer of Games, Watcher of Anime, Father of Cats
     experience :
+      - start : December 2024
+        end : Present
+        experience : Scientific Research Corporation, Software Developer II
+      - start : September 2024
+        end : Present
+        experience : Five Mics, Lead Engineer
       - start : January 2022
-        end : June 2024
+        end : September 2024
         experience : GOLF+, Software Engineer
       - start : July 2021
         end : January 2022

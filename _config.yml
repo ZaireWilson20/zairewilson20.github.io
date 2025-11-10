@@ -13,8 +13,14 @@ theme_settings :
     username : Zaire Wilson
     description : Programmer of Games, Watcher of Anime, Father of Cats
     experience :
+      - start : December 2024
+        end : Present
+        experience : Scientific Research Corporation, Software Developer II
+      - start : September 2024
+        end : Present
+        experience : Five Mics, Lead Engineer
       - start : January 2022
-        end : June 2024
+        end : September 2024
         experience : GOLF+, Software Engineer
       - start : July 2021
         end : January 2022
@@ -22,23 +28,6 @@ theme_settings :
       - start : May 2019
         end : January 2020
         experience : Rensselaer Polytechnic Institute, Undergrad Researcher
-    skills : 
-      - skill : C#
-        value : 85  # Percent value       
-      - skill : Python
-        value : 80  # Percent value      
-      - skill : C++
-        value : 75  # Percent value      
-      - skill : Unity
-        value : 85  # Percent value      
-      - skill : Unreal
-        value : 60  # Percent value          
-      - skill : HTML5 & CSS
-        value : 50  # Percent       
-      - skill : XAML
-        value : 60  # Percent value
-      - skill : React.js
-        value : 60  # Percent value
     education :
       - start : August 2020
         end : May 2021

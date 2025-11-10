@@ -35,38 +35,11 @@ layout: page
   </section>
   {% include projects.html %}
   <!-- career section -->
-  <div class="container-fluid">
-    <section id="career" class="row justify-content-center">
-        <article class="exper col-xl-4 col-sm-auto" style="justify-self: center;">
-          <p class="title">EXPERIENCE</p>
-          <ul class="exper-list">
-            {% for exp in  profile.experience %}
-            <li class="meta">
-              <p class="date">{{ exp.start }} ~ {{ exp.end }}</p>
-              <p class="description">{{ exp.experience }}</p>
-            </li>
-            {% endfor %}
-          </ul>
-        </article>
-        <article class="education col-xl-4 col-sm-auto" style="justify-self: center;">
-          <p class="title">EDUCATION</p>
-            <ul class="edu-list">
-              {% for exp in  profile.education %}
-              <li class="meta col">
-                <p class="date">{{ exp.start }} ~ {{ exp.end }}</p>
-                <p class="description">{{ exp.school }}</p>
-                <p class="description">{{ exp.degree }}</p>
-              </li>
-              {% endfor %}
-            </ul>
-        </article>
-    </section>
-  </div>
+
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
         Prism.highlightAll();
     });
   </script>
-  {% include projects.html %}
 </div>

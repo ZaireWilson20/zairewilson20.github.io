@@ -2,6 +2,7 @@
 <html lang="ko">
 {% include head.html %}
 <body>
+  <link rel="stylesheet" href="{{ site.url }}/assets/css/highlightTheme.css" />
   {%if page.url contains "blog"%}
   <div class="container-home">
     {{ content }}
@@ -11,6 +12,9 @@
     {{ content }}
   </div>
   {%endif%}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-csharp.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-yaml.min.js"></script>
 </body>
 
 </html>

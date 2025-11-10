@@ -1,8 +1,296 @@
 - project :
-    print : True # If 'False' is selected, it will not be displayed in 'home.html > aside > .proj-content'. 
-    modal : True # If 'True' is selected, modal can open in 'portfolio.html'. 
-    url : https://www.golfplusvr.com/ # Full URL
-    image : "Golf+Image.png" # path: assets/project/
+    print : True
+    modal : True
+    url : https://fivemics.io/digital
+    image : "FiveMicsCover.png"
+    date : 09/2024 - Present
+    title : Five Mics - The Hip Hop Trading Card Game
+    summary : Lead Engineer - Server-Authoritative Multiplayer & Custom Tooling
+    description : Sole engineer on a 4-person team building a hybrid physical/digital collectible card game. Architected and implemented all gameplay systems, server-authoritative networking, and designer-focused tools enabling non-programmers to create complex card abilities.
+    contents :
+        - title : Project Overview & Architecture
+          image : 
+          description : <p>Five Mics is a hip-hop inspired trading card game that bridges physical and digital play. As the sole engineer, I'm responsible for the entire technical stack - from client gameplay to server authority to content creation tools.</p>
+            <p><b>Key Technical Challenges:</b></p>
+            <li>Implementing server-authoritative gameplay to prevent cheating in a competitive card game</li>
+            <li>Creating a flexible card ability system that supports hundreds of unique effects</li>
+            <li>Building tools that empower designers to create abilities without code</li>
+            <li>Ensuring smooth netcode for real-time card battles</li>
+            <p><b>Tech Stack:</b> Unity, C#, FishNet (networking), ScriptableObjects, UI Toolkit</p>
+            
+        - title : Card Ability System - Modular Design with ScriptableObjects
+          image :
+          description: |
+            <p>The heart of Five Mics is its flexible card system. Each card can have multiple abilities triggered by different game events. I designed this using a <b>trigger-condition-action</b> pattern with ScriptableObjects, making it completely data-driven.</p>
+            <p><b>Architecture:</b></p>
+            <li><b>CardAbility ScriptableObject</b> - Contains trigger type, conditions list, and actions list</li>
+            <li><b>Triggers</b> - Events like "OnPlay", "OnAttack", "OnDamaged", "StartOfTurn"</li>
+            <li><b>Conditions</b> - Boolean checks like "TargetHealthBelow", "CardTypeMatches", "PlayerHasResource"</li>
+            <li><b>Actions</b> - Effects like "DealDamage", "DrawCards", "ModifyStats", "CreateToken"</li>
+            <p><b>Example - A card that draws 2 cards when played if opponent has more cards in hand</b></p>
+            <p>Here's the ScriptableObject structure (showing the trigger-condition-action pattern):</p>
+            <div class="highlight"><pre><code class="language-csharp">[CreateAssetMenu(fileName = "New Card Ability", menuName = "Five Mics/Card Ability")]
+            public class CardAbility : ScriptableObject
+            {
+                [Header("Trigger")]
+                public AbilityTrigger trigger; // When does this activate?
+                
+                [Header("Conditions")]
+                public List&lt;AbilityCondition&gt; conditions; // What must be true?
+                
+                [Header("Actions")]
+                public List&lt;AbilityAction&gt; actions; // What happens?
+                
+                [TextArea(3, 5)]
+                public string abilityText; // Human-readable description
+            }
+
+            public abstract class AbilityTrigger : ScriptableObject
+            {
+                public abstract bool ShouldTrigger(GameContext context);
+            }
+
+            public abstract class AbilityCondition : ScriptableObject  
+            {
+                public abstract bool Evaluate(GameContext context);
+            }
+
+            public abstract class AbilityAction : ScriptableObject
+            {
+                public abstract void Execute(GameContext context);
+            }
+            </code></pre></div>
+            <p>This modular approach means designers can mix and match triggers, conditions, and actions to create hundreds of unique abilities without touching code.</p>
+
+        - title : Stack-Based Resolution System
+          image :
+          description: |
+            <p>Card games need to handle complex interactions where multiple abilities trigger simultaneously. I implemented a <b>stack-based resolution system</b> similar to Magic the Gathering.</p>
+            <p><b>How it works:</b></p>
+            <li>When an ability triggers, it goes on the stack</li>
+            <li>Players can respond by adding more abilities to the stack</li>
+            <li>The stack resolves from top to bottom (last in, first out)</li>
+            <li>This handles timing conflicts and allows for strategic counterplay</li>
+            <p><b>Stack Manager implementation:</b></p>
+            <div class="highlight"><pre><code class="language-csharp">public class AbilityStack : NetworkBehaviour
+            {
+                private Stack&lt;StackEntry&gt; stack = new Stack&lt;StackEntry&gt;();
+                private bool isResolving = false;
+                
+                [Server]
+                public void AddToStack(CardAbility ability, GameContext context)
+                {
+                    var entry = new StackEntry(ability, context);
+                    stack.Push(entry);
+                    RpcUpdateStackDisplay(entry);
+                    RequestResponse(context.OpponentPlayerId);
+                }
+                
+                [Server]
+                public async void ResolveStack()
+                {
+                    isResolving = true;
+                    while (stack.Count &gt; 0)
+                    {
+                        var entry = stack.Pop();
+                        bool conditionsMet = true;
+                        
+                        foreach (var condition in entry.Ability.conditions)
+                        {
+                            if (!condition.Evaluate(entry.Context))
+                            {
+                                conditionsMet = false;
+                                break;
+                            }
+                        }
+                        
+                        if (conditionsMet)
+                        {
+                            foreach (var action in entry.Ability.actions)
+                            {
+                                action.Execute(entry.Context);
+                            }
+                        }
+                        await Task.Delay(500);
+                    }
+                    isResolving = false;
+                    CheckForTriggeredAbilities();
+                }
+            }
+            </code></pre></div>
+            
+        - title : Server-Authoritative Networking with FishNet
+          image :
+          description: |
+            <p>To prevent cheating in a competitive card game, all game logic runs on the server. Clients send <b>GameAction requests</b>, the server validates them, updates the game state, and syncs results back.</p>
+            <p><b>Network Architecture:</b></p>
+            <li><b>Client</b> - Sends action requests, displays game state, handles UI and animations</li>
+            <li><b>Server</b> - Validates actions, executes abilities, maintains authoritative game state</li>
+            <li><b>FishNet RPCs</b> - Client to Server commands, Server to Client state updates</li>
+            <p><b>Example - Playing a card (showing the full client-server-client flow):</b></p>
+            <div class="highlight"><pre><code class="language-csharp">public class CardPlayHandler : NetworkBehaviour
+            {
+                // CLIENT SIDE - Player clicks to play a card
+                [Client]
+                public void RequestPlayCard(Card card, Target target)
+                {
+                    CmdPlayCard(card.NetworkId, target.NetworkId);
+                    card.ShowPendingState();
+                }
+                
+                // SERVER VALIDATES AND EXECUTES
+                [ServerRpc]
+                private void CmdPlayCard(int cardId, int targetId)
+                {
+                    var player = GetPlayerFromConnection();
+                    var card = GameState.GetCard(cardId);
+                    var target = GameState.GetTarget(targetId);
+                    
+                    // Validation checks
+                    if (!IsPlayerTurn(player)) return;
+                    if (!player.Hand.Contains(card)) return;
+                    if (!card.CanAfford(player.Resources)) return;
+                    if (!card.IsValidTarget(target)) return;
+                    
+                    // Execute the action
+                    player.SpendResources(card.Cost);
+                    player.Hand.Remove(card);
+                    GameState.PlayCard(card, target);
+                    card.TriggerAbilities(AbilityTrigger.OnPlay);
+                    
+                    // Sync to all clients
+                    RpcCardPlayed(cardId, targetId, player.NetworkId);
+                }
+                
+                // UPDATE ALL CLIENTS
+                [ObserversRpc]
+                private void RpcCardPlayed(int cardId, int targetId, int playerId)
+                {
+                    var card = GameState.GetCard(cardId);
+                    var target = GameState.GetTarget(targetId);
+                    card.AnimatePlayToBoard(target);
+                    UIManager.UpdatePlayerResources(playerId);
+                }
+            }
+            </code></pre></div>
+            <p>This pattern ensures the server is the single source of truth. Even if a client tries to cheat by modifying local data, the server won't execute invalid actions.</p>
+
+        - title : Card Creator Tool - Empowering Designers
+          image :
+          description: |
+            <p>One of my proudest achievements is the <b>Card Creator Tool</b> built with Unity's UI Toolkit. It allows our designer to create and edit cards without writing any code.</p>
+            <p><b>Features:</b></p>
+            <li><b>Visual Ability Builder</b> - Drag-and-drop triggers, conditions, and actions</li>
+            <li><b>Context-Key System</b> - Actions can reference outputs from conditions (e.g., "target with lowest health")</li>
+            <li><b>Real-time Preview</b> - See card text generated from abilities</li>
+            <li><b>Validation</b> - Warns about invalid combinations</li>
+            <li><b>Batch Operations</b> - Edit multiple cards at once</li>
+            <p><b>Technical Implementation (showing the UI Toolkit setup):</b></p>
+            <div class="highlight"><pre><code class="language-csharp">public class CardCreatorWindow : EditorWindow
+            {
+                private VisualElement root;
+                private CardData currentCard;
+                
+                [MenuItem("Five Mics/Card Creator")]
+                public static void ShowWindow()
+                {
+                    var window = GetWindow&lt;CardCreatorWindow&gt;();
+                    window.titleContent = new GUIContent("Card Creator");
+                }
+                
+                private void CreateGUI()
+                {
+                    root = rootVisualElement;
+                    var visualTree = AssetDatabase.LoadAssetAtPath&lt;VisualTreeAsset&gt;(
+                        "Assets/Editor/CardCreator.uxml");
+                    visualTree.CloneTree(root);
+                    
+                    SetupAbilityList();
+                    SetupComponentDropdowns();
+                    SetupContextKeyEditor();
+                }
+                
+                private void SetupAbilityList()
+                {
+                    var abilityList = root.Q&lt;ListView&gt;("ability-list");
+                    abilityList.makeItem = () =&gt; new AbilityListItem();
+                    abilityList.bindItem = (element, index) =&gt;
+                    {
+                        var item = element as AbilityListItem;
+                        item.BindAbility(currentCard.abilities[index]);
+                    };
+                    
+                    var addButton = root.Q&lt;Button&gt;("add-ability");
+                    addButton.clicked += () =&gt;
+                    {
+                        var newAbility = CreateInstance&lt;CardAbility&gt;();
+                        currentCard.abilities.Add(newAbility);
+                        abilityList.Rebuild();
+                    };
+                }
+                
+                // Context keys allow actions to reference condition outputs
+                private void SetupContextKeyEditor()
+                {
+                    var contextKeyField = root.Q&lt;TextField&gt;("context-key");
+                    contextKeyField.RegisterValueChangedCallback(evt =&gt;
+                    {
+                        var selectedAction = GetSelectedAction();
+                        if (selectedAction is IContextConsumer consumer)
+                        {
+                            consumer.contextKey = evt.newValue;
+                            GenerateCardTextPreview();
+                        }
+                    });
+                }
+            }
+            </code></pre></div>
+            <p>This tool has been a game-changer. Our designer can now iterate on card designs in minutes instead of waiting for code changes.</p>
+        - title : DevOps & Infrastructure
+          image : # Optional: Add infrastructure diagram
+          description : |
+                <b>Cloud Architecture:</b>
+                <li><b>DigitalOcean Droplet</b> - Hosts ASP.NET Core API with nginx reverse proxy</li>
+                <li><b>Edgegap Integration</b> - Manages fleet of dedicated game servers worldwide</li>
+                <li><b>GitHub Actions</b> - Automated CI/CD pipeline for API deployment</li>
+                <li><b>Docker Compose</b> - Containerized application with environment-based configuration</li>
+                
+                <b>Configuration Management:</b>
+                <li>Remote config service pulling version data from private GitHub repository</li>
+                <li>Hot-reload capability for updating app versions without service restart</li>
+                <li>Environment-specific builds (development vs. production server versions)</li>
+                <li>Secure token management using environment variables and .NET user secrets</li>
+                
+                <b>Monitoring & Reliability:</b>
+                <li>Webhook-based health checks for deployment status</li>
+                <li>Timeout handling and graceful failure modes</li>
+                <li>Request forwarding header configuration for accurate client IP detection behind proxy</li>
+                <li>CORS configuration for cross-origin API access from Unity clients</li>
+        - title : Results & Crowdfunding Success
+          image :
+          description : <p>The technical foundation enabled us to run a successful crowdfunding campaign:</p>
+            <li><b>$17K raised</b> from 160+ backers</li>
+            <li><b>Multiplayer prototype</b> successfully deployed and tested</li>
+            <li><b>50+ unique cards</b> created using the Card Creator tool</li>
+            <li><b>Zero game-breaking bugs</b> in playtests thanks to server authority</li>
+            <p><b>Lessons Learned:</b></p>
+            <li>Server-authoritative architecture is essential for competitive games</li>
+            <li>Investing in tools pays off exponentially in iteration speed</li>
+            <li>ScriptableObjects are perfect for data-driven game systems</li>
+            <li>Clear separation between network logic and visual presentation makes debugging easier</li>
+            <p><b>Tech Stack Summary:</b></p>
+            <li>Unity 2022.3 LTS</li>
+            <li>FishNet Networking (server-authoritative)</li>
+            <li>ScriptableObjects for data-driven design</li>
+            <li>UI Toolkit for editor tools</li>
+            <li>DigitalOcean for hosting (Docker + Nginx)</li>
+            <li>Edgegap for dedicated server scaling</li>
+
+- project :
+    print : True
+    modal : True
+    url : https://www.golfplusvr.com/
+    image : "Golf+Image.png"
     date : 02/2022 - 06/2024
     title : Golf+
     summary : Software Engineer - Gameplay
@@ -25,11 +313,12 @@
           description : <li>In Game "Gizmos" to help non engineering devs(QA, Product, Community team) visualize gameplay systems.</li>
             <li>Event Logging for Data Analytics and Debugging through analytic software Amplitude's API.</li>
             <li>Shell scripting to allow Slack commands to trigger processes on build server.</li>
+            
 - project :
-    print : True # If 'False' is selected, it will not be displayed in 'home.html > aside > .proj-content'. 
-    modal : True # If 'True' is selected, modal can open in 'portfolio.html'. 
-    url : https://mathpsych.org/presentation/1226#/document # Full URL
-    image : "JAG_GIF.gif" # path: assets/project/
+    print : True
+    modal : True
+    url : https://mathpsych.org/presentation/1226#/document
+    image : "JAG_GIF.gif"
     date : 05/2019 - 01/2020
     title : The JAG - Role Stability and Team Performance in a 4-Player Cooperative Cooking Game
     summary : Undergraduate Reseach Assistant

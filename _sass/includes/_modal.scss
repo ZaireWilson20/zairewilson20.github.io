@@ -20,11 +20,11 @@
     .modal-content{
         z-index: 99;
         position: relative;
-        max-width:650px;
+        max-width:900px;
         margin: 100px auto;
         padding: 15px 2% 55px;
         @media (max-width: 991px) {
-            width:70%;
+            width:90%;
             margin: 80px auto;
         }
         @media (max-width: 576px) {
@@ -139,3 +139,4 @@
         }
     }
 }    
+

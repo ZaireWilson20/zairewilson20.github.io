@@ -1,0 +1,51 @@
+---
+import { experience as exp } from '../lib/data';
+---
+<section id="experience" class="portfolio-section">
+  <div class="section-wrap">
+    <div class="section-head">
+      <p class="eyebrow">02</p>
+      <h2 class="title">Experience</h2>
+      <p class="lede">Real-time simulation, XR, and full-stack work across games, research, and defense.</p>
+    </div>
+    <ol class="timeline">
+      {exp.jobs.map((job: any) => (
+        <li class="job">
+          <div class="job-date">{job.start} &ndash; {job.end}</div>
+          <div class="job-body">
+            <h3 class="job-role">{job.role}</h3>
+            <p class="job-company">
+              {job.company}
+              {job.note && <span class="note"> ({job.note})</span>}
+              {job.location && <span class="location"> &middot; {job.location}</span>}
+            </p>
+            <ul class="job-highlights">
+              {job.highlights.map((h: string) => <li>{h}</li>)}
+            </ul>
+            {job.tags && <ul class="tag-list">{job.tags.map((t: string) => <li>{t}</li>)}</ul>}
+            {job.project && (
+              <a type="button" class="text-btn" onclick={`open_modal('${job.project}')`}>See project &rarr;</a>
+            )}
+          </div>
+        </li>
+      ))}
+    </ol>
+
+    <div class="credentials row">
+      <div class="col-12 col-md-7">
+        <h3 class="sub-title">Education</h3>
+        <ul class="cred-list">
+          {exp.education.map((ed: any) => (
+            <li><span class="cred-main">{ed.degree}</span><span class="cred-meta">{ed.school} &middot; {ed.date}</span></li>
+          ))}
+        </ul>
+      </div>
+      <div class="col-12 col-md-5">
+        <h3 class="sub-title">Certifications</h3>
+        <ul class="cred-list">
+          {exp.certifications.map((c: string) => <li><span class="cred-main">{c}</span></li>)}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

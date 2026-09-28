@@ -1,0 +1,47 @@
+---
+import Icons from './Icons.astro';
+import { site, projects, url, getTags, tagSlug } from '../lib/data';
+
+const profile = site.profile;
+const tags = [...(await getTags()).keys()];
+---
+<!-- User Profile -->
+<div id="profile">
+  <a href={url('/portfolio')}>
+    <div class="img-wrap">
+      <img src={url(profile.image)} alt="profile-image">
+    </div>
+  </a>
+  <p class="username">{profile.username}</p>
+  <p class="description">{profile.description}</p>
+  <ul id="icons">
+    <Icons />
+  </ul>
+</div>
+<!-- Tag Navigation -->
+<div id="tag-wrap">
+  {tags.length > 0 && (
+    <>
+      <a href={url('/tags')}><p class="title">TAGS</p></a>
+      {tags.map((tag) => (
+        <a href={url(`/tags#${tagSlug(tag)}`)}><span class="tag">{tag}</span></a>
+      ))}
+    </>
+  )}
+</div>
+<!-- Project -->
+<div id="proj-wrap">
+  <a href={url('/portfolio')}>
+    <p class="title">PORTFOLIO 🙋🏽‍♂️</p>
+    <hr class="proj-hr">
+    {projects.filter((p) => p.print).map((p) => (
+      <>
+        <div class="proj-content">
+          <div class="proj-title">{p.title}</div>
+          <div class="meta">{p.date}</div>
+        </div>
+        <hr class="proj-hr">
+      </>
+    ))}
+  </a>
+</div>

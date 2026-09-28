@@ -1,0 +1,56 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { render } from 'astro:content';
+import { getPosts, formatDate, type Post } from '../lib/data';
+
+// Blog posts live at /YYYY/MM/DD/slug.html, matching the old Jekyll permalinks
+export async function getStaticPaths() {
+  const { getPosts } = await import('../lib/data');
+  return (await getPosts()).map((post) => ({ params: { slug: post.slug }, props: { post } }));
+}
+
+interface Props { post: Post }
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+<Base title={post.data.title} subtitle={post.data.subtitle} image={post.data.image} tags={post.data.tags}>
+  <Header />
+  <div id="post">
+    <section class="post-header">
+      <h1 class="title">{post.data.title}</h1>
+      <p class="subtitle">{post.data.subtitle}</p>
+      <p class="meta">{formatDate(post.date)}</p>
+    </section>
+    <section class="post-content">
+      <Content />
+    </section>
+  </div>
+
+  <div id="top" class="top-btn" onclick="moveTop()">
+    <i class="fas fa-chevron-up"></i>
+  </div>
+
+  <Footer />
+
+  <script is:inline>
+    var lastScrollTop = 0;
+    window.onscroll = function () {
+      var st = document.body.scrollTop || document.documentElement.scrollTop;
+      var top = document.getElementById("top");
+      if (st > 250) {
+        top.style.display = "block";
+        top.style.opacity = st > lastScrollTop ? 0 : 1;
+      } else {
+        top.style.opacity = 0;
+        if (st > lastScrollTop) top.style.display = "none";
+      }
+      lastScrollTop = st <= 0 ? 0 : st;
+    };
+    function moveTop() {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    }
+  </script>
+</Base>

@@ -1,0 +1,47 @@
+---
+import Modal from './Modal.astro';
+import { projects, url } from '../lib/data';
+---
+<section id="work" class="portfolio-section">
+  <div class="section-wrap">
+    <div class="section-head">
+      <p class="eyebrow">03</p>
+      <h2 class="title">Selected Work</h2>
+      <p class="lede">Shipped games, research, and prototypes from my time in industry and school.</p>
+    </div>
+    <div class="card-container row">
+      {projects.map((project) => (
+        <>
+          <div class="card-wrapper col-xl-4 col-lg-6 col-sm-12">
+            <div class="card">
+              {project.image && (
+                <div class="img-wrap">
+                  <img src={url(`/assets/project/${project.image}`)} alt={project.title} loading="lazy" />
+                  {project.kind && <span class="kind">{project.kind}</span>}
+                </div>
+              )}
+              <div class="text-wrap">
+                <div class="title-wrap">
+                  <p class="date">{project.date}</p>
+                  <div class="title">{project.title}</div>
+                </div>
+                <div class="description">{project.description}</div>
+              </div>
+              <div class="icons">
+                {project.url && (
+                  <a href={project.url} target="_blank" rel="noopener" aria-label="Project link"><i class="fas fa-link"></i></a>
+                )}
+                {project.modal && (
+                  <a type="button" class="card-btn first" onclick={`open_modal('${project.id}')`}>More Info</a>
+                )}
+              </div>
+            </div>
+          </div>
+          {project.modal && <Modal project={project} />}
+        </>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script is:inline src="/assets/js/modal.js"></script>

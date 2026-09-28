@@ -1,0 +1,42 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import { getTags, tagSlug, formatDate } from '../lib/data';
+
+const tags = [...(await getTags()).entries()];
+const total = tags.length;
+---
+<Base title="Tags">
+  <Header current="tags" />
+  <div id="tags">
+    <section class="bg"></section>
+    <h1 class="title">Tags</h1>
+    <ul class="tag-cloud">
+      {tags.map(([tag, posts]) => (
+        <a href={`#${tagSlug(tag)}`}>
+          <li class="tag" style={`background-color: rgba(86,61,124, ${(Math.floor((posts.length * 100) / total) + 50) / 100})`}>
+            {tag}
+            <span class="meta">{posts.length}</span>
+          </li>
+        </a>
+      ))}
+    </ul>
+    <div class="tag-groups">
+      {tags.map(([tag, posts]) => (
+        <div class="tag-group">
+          <h4 id={tagSlug(tag)} class="title">{tag}</h4>
+          <div class="items">
+            {posts.map((post) => (
+              <a href={post.href} class="post-link">
+                <div class="item">
+                  <p class="meta">{formatDate(post.date)}</p>
+                  <p class="title">{post.data.title}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</Base>

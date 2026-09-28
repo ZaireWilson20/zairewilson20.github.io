@@ -1,0 +1,61 @@
+---
+// Design: LightSwitch variant a ("toggle plate"). Clicking flips the whole house between dark and light.
+interface Props { size?: 'md' | 'sm' }
+const { size = 'md' } = Astro.props;
+---
+<button type="button" class:list={['switch', size]} data-light-switch aria-label="Turn the lights on" aria-pressed="false">
+  <span class="screw top"></span>
+  <span class="screw bottom"></span>
+  <span class="slot"><span class="lever"></span></span>
+</button>
+
+<style>
+  .switch {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 64px;
+    height: 96px;
+    padding: 0;
+    background: var(--cream);
+    border: 3px solid var(--ink);
+    border-radius: 10px;
+    box-shadow: 4px 4px 0 var(--ink);
+    flex: none;
+  }
+  .switch.sm {
+    zoom: 0.6;
+  }
+  .screw {
+    position: absolute;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    margin-left: -4px;
+    border-radius: 50%;
+    border: 2px solid var(--ink);
+  }
+  .screw.top { top: 7px; }
+  .screw.bottom { bottom: 7px; }
+  .slot {
+    display: block;
+    width: 22px;
+    height: 44px;
+    padding: 3px;
+    background: var(--ink);
+    border-radius: 5px;
+  }
+  .lever {
+    display: block;
+    width: 16px;
+    height: 18px;
+    background: var(--mustard);
+    border: 2px solid var(--ink);
+    border-radius: 3px;
+    transform: translateY(20px);
+    transition: transform 0.18s cubic-bezier(0.3, 1.6, 0.5, 1);
+  }
+  :global([data-theme='light']) .lever {
+    transform: translateY(0);
+  }
+</style>

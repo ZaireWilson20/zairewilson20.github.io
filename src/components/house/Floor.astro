@@ -1,0 +1,26 @@
+---
+// Design: Floor variant a. Perspective checkerboard.
+---
+<div class="floor" aria-hidden="true"><div class="tiles"></div></div>
+
+<style>
+  .floor {
+    position: relative;
+    height: clamp(120px, 16vw, 200px);
+    overflow: hidden;
+    border-top: 4px solid var(--ink);
+    perspective: 360px;
+    perspective-origin: 50% 0%;
+    background: var(--floor-a);
+  }
+  .tiles {
+    position: absolute;
+    left: -80%;
+    right: -80%;
+    bottom: 0;
+    height: 900px;
+    transform-origin: 50% 100%;
+    transform: rotateX(62deg);
+    background: repeating-conic-gradient(var(--floor-a) 0 25%, var(--floor-b) 0 50%) 0 0 / 90px 90px;
+  }
+</style>

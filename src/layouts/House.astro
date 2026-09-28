@@ -1,0 +1,92 @@
+---
+import '../styles/global.css';
+import Nav from '../components/house/Nav.astro';
+import Footer from '../components/house/Footer.astro';
+import { site, url } from '../lib/data';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  tags?: string[];
+  /** The house page: room links scroll in place */
+  home?: boolean;
+  current?: 'blog';
+  /** Load Prism + the code theme (project modals, blog posts) */
+  code?: boolean;
+}
+const { title: pageTitle, description = site.profile.tagline, image, tags = [], home = false, current, code = false } = Astro.props;
+const title = pageTitle ? `${pageTitle} · ${site.title}` : `${site.title} · Software Engineer`;
+const ogImage = new URL(url(image ?? site.profile.image), Astro.site).href;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta name="author" content={site.profile.username} />
+  {tags.length > 0 && <meta name="keywords" content={tags.join(',')} />}
+  <link rel="canonical" href={canonical} />
+  <link rel="icon" href={url(site.favicon)} type="image/x-icon">
+
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content={ogImage} />
+  <meta property="og:site_name" content={site.title} />
+  <meta property="og:url" content={canonical} />
+  <meta name="twitter:card" content="summary" />
+
+  <!-- Theme before first paint: dark by default, light if the switch was flipped -->
+  <script is:inline>
+    document.documentElement.classList.add('js');
+    try {
+      if (localStorage.getItem('house-theme') === 'light') document.documentElement.dataset.theme = 'light';
+    } catch (e) {}
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Space+Mono:wght@400;700&display=swap">
+  {code && <link rel="stylesheet" href={url('/assets/css/highlightTheme.css')}>}
+</head>
+<body>
+  <a class="skip sr-only" href="#main">Skip to content</a>
+  <Nav home={home} current={current} />
+  <main id="main">
+    <slot />
+  </main>
+  <Footer />
+
+  {code && (
+    <>
+      <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+      <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-csharp.min.js"></script>
+      <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-yaml.min.js"></script>
+    </>
+  )}
+  <script>
+    import '../scripts/house.ts';
+  </script>
+</body>
+</html>
+
+<style>
+  .skip:focus {
+    position: fixed;
+    top: 12px;
+    left: 12px;
+    z-index: 100;
+    width: auto;
+    height: auto;
+    padding: 10px 14px;
+    clip: auto;
+    background: var(--mustard);
+    color: var(--ink);
+    border: 3px solid var(--ink);
+    font: 700 14px/1 var(--mono);
+  }
+</style>

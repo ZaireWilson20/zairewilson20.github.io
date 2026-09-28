@@ -1,0 +1,191 @@
+/* ==========================================================================
+   The House: design tokens + base styles
+   Source: design/Zaire House Concept.html (Claude Design export)
+   Dark is the default; the light switch sets <html data-theme="light">.
+   ========================================================================== */
+
+:root {
+  --wall: #2a292d;
+  --wall-2: #222125;
+  --void: #161518;
+  --panel: #36353b;
+  --ink: #0d0c0f;
+  --text: #efe9df;
+  --muted: #a8a298;
+  --cream: #ece5d8;
+  --pink: #e97fa5;
+  --sky: #6ea8d6;
+  --mustard: #dca630;
+  --floor-a: #161518;
+  --floor-b: #3b3a40;
+
+  /* Motion knobs (the design's "Tweaks"); zeroed for reduced motion below */
+  --tilt: 1;
+  --breathe: running;
+
+  --disp: 'Bagel Fat One', 'Arial Black', system-ui, sans-serif;
+  --body: 'Bricolage Grotesque', 'Segoe UI', system-ui, sans-serif;
+  --mono: 'Space Mono', ui-monospace, Consolas, monospace;
+
+  /* Layout */
+  --page-max: 1180px;
+  --gutter: clamp(16px, 4vw, 48px);
+
+  color-scheme: dark;
+}
+
+:root[data-theme='light'] {
+  --wall: #cfc8bb;
+  --wall-2: #c5bdaf;
+  --void: #958d80;
+  --panel: #e8e2d6;
+  --ink: #1b191c;
+  --text: #1b191c;
+  --muted: #5d5850;
+  --floor-a: #1b191c;
+  --floor-b: #ebe5da;
+  color-scheme: light;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --breathe: paused;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--wall);
+  color: var(--text);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+}
+a:hover {
+  color: var(--pink);
+}
+
+img {
+  max-width: 100%;
+}
+
+:focus-visible {
+  outline: 3px solid var(--sky);
+  outline-offset: 3px;
+}
+
+.wrap {
+  width: 100%;
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding-inline: var(--gutter);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Doorknob cursor (mouse users only) */
+@media (pointer: fine) {
+  html,
+  html * {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30'%3E%3Ccircle cx='15' cy='15' r='11' fill='%23dca630' stroke='%230d0c0f' stroke-width='3'/%3E%3Ccircle cx='11' cy='11' r='3' fill='%23fff' fill-opacity='.7'/%3E%3C/svg%3E") 15 15, auto;
+  }
+  input,
+  textarea {
+    cursor: text;
+  }
+}
+
+/* ---- Shared keyframes ---- */
+@keyframes hs-breathe {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(1.2deg) scale(1.012); }
+}
+@keyframes hs-swing {
+  0%, 100% { transform: rotate(1.5deg); }
+  50% { transform: rotate(-1.5deg); }
+}
+@keyframes hs-flick {
+  0% { opacity: 1; }
+  10% { opacity: 0.15; }
+  20% { opacity: 0.9; }
+  30% { opacity: 0.05; }
+  45% { opacity: 1; }
+  60% { opacity: 0.3; }
+  100% { opacity: 1; }
+}
+
+/* Light switch flicker: the whole house blinks while the theme changes */
+html.is-flickering body {
+  animation: hs-flick 0.65s steps(1, end) both;
+}
+
+/* Rooms slide in as you reach them. Only armed once JS runs, so content is never hidden without it. */
+.js [data-room].is-pending {
+  opacity: 0;
+  transform: translateX(-72px);
+}
+.js [data-room] {
+  transition: opacity 0.7s ease, transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .js [data-room].is-pending {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Shared chips / labels */
+.mono-label {
+  font: 700 13px/1 var(--mono);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.pill {
+  display: inline-block;
+  padding: 4px 10px;
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  font: 700 11px/1 var(--mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* Accent color helper: set --accent from a data-color attribute */
+[data-color='pink'] { --accent: var(--pink); }
+[data-color='sky'] { --accent: var(--sky); }
+[data-color='mustard'] { --accent: var(--mustard); }
+[data-color='cream'] { --accent: var(--cream); }
+[data-color='panel'] { --accent: var(--panel); }

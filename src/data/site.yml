@@ -7,6 +7,9 @@ profile:
   username: Zaire Wilson
   description: Programmer of Games, Watcher of Anime, Father of Cats
   headline: Software Engineer • Real-Time Simulation & XR • Full-Stack Applications
+  # Hero copy
+  tagline: Real-time simulation, XR, and full-stack applications. I build the path from physical input to virtual state.
+  quip: Programmer of games, watcher of anime, father of cats.
   location: Charleston, SC
   resume_url: /Documents/Zaire_Wilson_Resume_Micron.pdf
 

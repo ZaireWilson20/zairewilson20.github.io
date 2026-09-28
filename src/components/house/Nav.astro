@@ -1,0 +1,75 @@
+---
+// Design: Nav variant a. Text links with an underline on the current room, plus the light switch.
+import LightSwitch from './LightSwitch.astro';
+import { url } from '../../lib/data';
+
+interface Props {
+  /** true on the house page itself (room links become in-page anchors) */
+  home?: boolean;
+  current?: 'blog';
+}
+const { home = false, current } = Astro.props;
+const rooms = [
+  { name: 'Workshop', id: 'room-workshop' },
+  { name: 'Hallway', id: 'room-hallway' },
+  { name: 'Gallery', id: 'room-gallery' },
+  { name: 'Study', id: 'room-study' },
+];
+const roomHref = (id: string) => (home ? `#${id}` : url(`/#${id}`));
+---
+<header class="nav wrap">
+  <a class="logo" href={url('/')} aria-label="Zaire Wilson, home">zw</a>
+  <nav aria-label="Rooms">
+    {rooms.map((r) => (
+      <a href={roomHref(r.id)} data-room-link={r.id}>{r.name}</a>
+    ))}
+    <a href={url('/blog')} aria-current={current === 'blog' ? 'page' : undefined}>Blog</a>
+    <LightSwitch size="sm" />
+  </nav>
+</header>
+
+<style>
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px 24px;
+    padding-block: 20px;
+    flex-wrap: wrap;
+  }
+  .logo {
+    font: 400 32px/1 var(--disp);
+    color: var(--text);
+    text-shadow: 3px 3px 0 var(--pink);
+    letter-spacing: -0.02em;
+    text-decoration: none;
+  }
+  .logo:hover {
+    color: var(--text);
+  }
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 12px clamp(14px, 3vw, 30px);
+    flex-wrap: wrap;
+  }
+  nav a {
+    font: 600 18px/1 var(--body);
+    color: var(--text);
+    text-decoration: none;
+    padding-bottom: 5px;
+    border-bottom: 4px solid transparent;
+  }
+  nav a:hover {
+    color: var(--pink);
+  }
+  nav a.is-current,
+  nav a[aria-current='page'] {
+    border-bottom-color: var(--pink);
+  }
+  @media (max-width: 520px) {
+    nav a {
+      font-size: 16px;
+    }
+  }
+</style>

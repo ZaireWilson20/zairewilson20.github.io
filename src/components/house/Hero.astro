@@ -1,0 +1,171 @@
+---
+// Design: Hero variant a. Crooked arch doorway with the avatar (avatar variant a, multiplied onto cream).
+import Button from './Button.astro';
+import { site, url } from '../../lib/data';
+
+const p = site.profile;
+const [first, ...rest] = p.username.split(' ');
+const github = site.icons?.github ? `https://github.com/${site.icons.github}` : null;
+---
+<section class="hero wrap">
+  <div class="copy">
+    <p class="mono-label">{p.location} · Software Engineer</p>
+    <h1><span>{first}</span><span>{rest.join(' ')}</span></h1>
+    <p class="tagline">{p.tagline}</p>
+    <p class="quip">{p.quip}</p>
+    <div class="actions">
+      <Button href={url(p.resume_url)} color="mustard" external>Resume →</Button>
+      {github && <Button href={github} color="panel" external>GitHub</Button>}
+      {site.icons?.linkedin && <Button href={site.icons.linkedin} color="panel" external>LinkedIn</Button>}
+    </div>
+  </div>
+
+  <div class="door-stage">
+    <div class="breathe">
+      <div class="door">
+        <div class="arch"></div>
+        <div class="portrait">
+          <img src={url(p.image)} alt={`Illustrated portrait of ${p.username}`} />
+        </div>
+        <div class="knock">PLEASE KNOCK</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 40px 56px;
+    padding-top: clamp(32px, 6vw, 72px);
+  }
+  .copy {
+    flex: 1 1 440px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    padding-bottom: clamp(24px, 6vw, 72px);
+  }
+  .copy p {
+    margin: 0;
+  }
+  h1 {
+    margin: 0;
+    font: 400 clamp(64px, 11vw, 112px) / 0.92 var(--disp);
+    letter-spacing: -0.02em;
+    color: var(--text);
+    text-shadow: 6px 6px 0 var(--pink);
+  }
+  h1 span {
+    display: block;
+  }
+  .tagline {
+    max-width: 30ch;
+    font: 700 clamp(19px, 2.2vw, 23px) / 1.4 var(--body);
+    text-wrap: pretty;
+  }
+  .quip {
+    font: 400 18px/1.5 var(--body);
+    color: var(--muted);
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+    margin-top: 6px;
+  }
+
+  .door-stage {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+  }
+  .breathe {
+    animation: hs-breathe 7s ease-in-out infinite;
+    animation-play-state: var(--breathe);
+    transform-origin: 50% 100%;
+  }
+  .door {
+    position: relative;
+    width: 380px;
+    height: 520px;
+    transform: perspective(900px) rotateY(-10deg) rotate(-1.5deg);
+    transform-origin: 50% 100%;
+    transition: transform 0.5s cubic-bezier(0.3, 1.6, 0.5, 1);
+  }
+  .door:hover {
+    transform: perspective(900px) rotateY(-18deg) rotate(-3.5deg);
+  }
+  .arch {
+    position: absolute;
+    inset: 0;
+    background: var(--sky);
+    border: 4px solid var(--ink);
+    border-bottom: none;
+    border-radius: 190px 190px 0 0;
+    box-shadow: 12px 0 0 var(--ink);
+  }
+  .portrait {
+    position: absolute;
+    left: 46px;
+    right: 46px;
+    bottom: 0;
+    height: 310px;
+    background: var(--cream);
+    border: 4px solid var(--ink);
+    border-bottom: none;
+    border-radius: 150px 150px 0 0;
+    overflow: hidden;
+  }
+  .portrait img {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 20%;
+    mix-blend-mode: multiply;
+  }
+  .knock {
+    position: absolute;
+    top: 118px;
+    right: -46px;
+    padding: 9px 15px;
+    background: var(--ink);
+    color: var(--cream);
+    font: 700 13px/1 var(--mono);
+    letter-spacing: 0.14em;
+    border: 2px solid var(--cream);
+    box-shadow: 4px 4px 0 var(--pink);
+    transform: rotate(8deg);
+  }
+
+  /* Phones: shrink the doorway and keep the sign on screen */
+  @media (max-width: 560px) {
+    .door {
+      width: 250px;
+      height: 340px;
+    }
+    .arch {
+      border-radius: 125px 125px 0 0;
+    }
+    .portrait {
+      left: 30px;
+      right: 30px;
+      height: 205px;
+      border-radius: 100px 100px 0 0;
+    }
+    .knock {
+      top: 70px;
+      right: -18px;
+      font-size: 11px;
+    }
+  }
+</style>

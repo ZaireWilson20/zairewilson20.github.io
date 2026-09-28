@@ -16,13 +16,17 @@ npm run preview   # serve dist/ locally
 | What | Where |
 | --- | --- |
 | Site settings, profile, social links | `src/data/site.yml` |
-| Currently Building cards | `src/data/now.yml` |
-| Experience timeline, education, certs | `src/data/experience.yml` |
-| Selected Work cards + modals | `src/data/projects.yml` |
+| Workshop cards (Currently Building) | `src/data/now.yml` |
+| Hallway frames + project modals (Selected Work) | `src/data/projects.yml` |
+| Gallery tiles (Art & Screens) | `src/data/gallery.yml` |
+| Study (Experience, education, certs) | `src/data/experience.yml` |
 | Blog posts | `src/content/blog/YYYY-MM-DD-slug.md` (URL: `/YYYY/MM/DD/slug.html`) |
 | Pages | `src/pages/` |
 | Layouts / components | `src/layouts/`, `src/components/` |
-| Styles (SCSS) | `src/styles/` |
+| Design tokens (colors, fonts, motion) | `src/styles/global.css` |
+| House components (one per Claude Design component) | `src/components/house/` |
+| Client behavior (light switch, modals, room slide-in) | `src/scripts/house.ts` |
+| Original Claude Design export | `design/Zaire House Concept.html` |
 | Images, PDFs, static JS/CSS | `public/` (served from `/`) |
 
 Project modals can embed YouTube videos per section:
@@ -40,4 +44,4 @@ contents:
 Pushing to `master` runs `.github/workflows/deploy.yml`, which builds the site and publishes `dist/`.
 Repo **Settings → Pages → Source** must be set to **GitHub Actions**.
 
-Styles originally based on the [Grape Theme](https://github.com/naye0ng/Grape-Theme) by Nayeong Kim (MIT, see `LICENSE.txt`).
+Visual design ("The House") made with Claude Design. The site was originally based on the [Grape Theme](https://github.com/naye0ng/Grape-Theme) by Nayeong Kim (MIT, see `LICENSE.txt`).

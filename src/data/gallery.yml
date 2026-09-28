@@ -1,0 +1,33 @@
+# Gallery room ("Art & Screens"). One row of tiles, left to right.
+# variant: a = colored mat, b = round bust on a plinth, c = under a spotlight
+# color: pink|sky|mustard|cream  ratio: CSS aspect-ratio  tilt: degrees (variant a)
+# image: path under public/ (leave empty for a striped placeholder showing `label`)
+
+- variant: a
+  color: sky
+  ratio: 4/5
+  tilt: -2
+  image: /assets/project/card-creator-example.png
+  caption: Five Mics card authoring tool
+  alt: Unity Inspector for building a Five Mics card ability
+
+- variant: b
+  color: pink
+  image: /assets/img/GRIdleToPatrol.gif
+  caption: Karen on patrol, UE5
+  alt: Grocery Run Karen switching from idle to patrol
+
+- variant: a
+  color: mustard
+  ratio: 1/1
+  tilt: 2.5
+  image: /assets/project/PandorasBox_room.jpg
+  caption: Pandora's Box, the CAVE
+  alt: The Pandora's Box escape room set up in RPI's CAVE
+
+- variant: c
+  color: sky
+  ratio: 3/2
+  image: /assets/project/JAG_GIF.gif
+  caption: The JAG, top-down kitchen
+  alt: Top-down view of the JAG cooperative cooking game

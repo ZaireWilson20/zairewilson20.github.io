@@ -1,0 +1,190 @@
+---
+// The house: hero + floor, then four rooms. Composition follows the "Full page, composed"
+// section of design/Zaire House Concept.html.
+import House from '../../layouts/House.astro';
+import Hero from './Hero.astro';
+import Floor from './Floor.astro';
+import RoomSign from './RoomSign.astro';
+import WorkshopItem from './WorkshopItem.astro';
+import ProjectFrame from './ProjectFrame.astro';
+import ProjectModal from './ProjectModal.astro';
+import GalleryTile from './GalleryTile.astro';
+import { now, projects, gallery, experience as exp } from '../../lib/data';
+---
+<House home code>
+  <Hero />
+  <Floor />
+
+  <section id="room-workshop" class="room" data-room aria-labelledby="workshop-title">
+    <RoomSign num="01" eyebrow="The Workshop" title="Currently Building" sub="Side projects and experiments on the bench right now." color="pink" />
+    <div class="wrap grid-3">
+      {now.map((item) => <WorkshopItem item={item} />)}
+    </div>
+  </section>
+
+  <section id="room-hallway" class="room room-alt" data-room>
+    <RoomSign num="02" eyebrow="The Hallway" title="Selected Work" sub="Games, simulations, and research, hung roughly in order. Click a frame for the full story." color="sky" />
+    <div class="wrap grid-3 frames">
+      {projects.map((p) => <ProjectFrame project={p} />)}
+    </div>
+  </section>
+
+  <section id="room-gallery" class="room" data-room>
+    <RoomSign num="03" eyebrow="The Gallery" title="Art & Screens" sub="Screens, sketches, and odds and ends." color="mustard" />
+    <div class="wrap gallery">
+      {gallery.map((t) => <GalleryTile tile={t} />)}
+    </div>
+  </section>
+
+  <section id="room-study" class="room" data-room>
+    <RoomSign num="04" eyebrow="The Study" title="Experience" sub="Five-plus years across defense simulation, live-service VR, and multiplayer games." color="cream" />
+    <div class="wrap study">
+      {exp.jobs.map((j: any) => (
+        <article class="job">
+          <div class="when">{j.start} – {j.end === 'Present' ? 'Now' : j.end}</div>
+          <div class="what">
+            <h3>{j.role}</h3>
+            <p class="org">
+              {j.company}{j.note && ` · ${j.note}`}{j.location && ` · ${j.location}`}
+            </p>
+            {j.highlights?.length > 0 && (
+              <ul>{j.highlights.map((h: string) => <li>{h}</li>)}</ul>
+            )}
+            {j.project && <a class="see" href={`#${j.project}`} data-open-modal={j.project}>See the project →</a>}
+          </div>
+        </article>
+      ))}
+      <div class="creds">
+        {exp.education.map((e: any) => (
+          <div><span class="mono-label">{e.label}</span><span class="cred">{e.value}</span></div>
+        ))}
+        {exp.certifications.map((c: string) => (
+          <div><span class="mono-label">Certified</span><span class="cred">{c}</span></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {projects.filter((p) => p.modal).map((p) => <ProjectModal project={p} />)}
+</House>
+
+<style>
+  .room {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    padding-block: clamp(64px, 9vw, 104px);
+    border-top: 4px solid var(--ink);
+    scroll-margin-top: 0;
+  }
+  #room-workshop {
+    border-top: none;
+  }
+  .room-alt {
+    gap: 56px;
+    padding-bottom: clamp(72px, 10vw, 120px);
+    background: var(--wall-2);
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap: 32px;
+    width: 100%;
+  }
+  .frames {
+    gap: 64px 48px;
+    align-items: start;
+  }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 0.9fr 1.1fr;
+    gap: 40px;
+    align-items: center;
+    width: 100%;
+  }
+  @media (max-width: 900px) {
+    .gallery {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 520px) {
+    .gallery {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  .study {
+    width: 100%;
+  }
+  .job {
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: 8px 24px;
+    padding: 30px 0;
+    border-top: 3px solid var(--panel);
+  }
+  @media (max-width: 700px) {
+    .job {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+  .when {
+    font: 400 14px/1.5 var(--mono);
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .what {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+  }
+  h3 {
+    margin: 0;
+    font: 700 23px/1.2 var(--body);
+  }
+  .org {
+    margin: 0;
+    font: 400 17px/1.4 var(--body);
+    color: var(--muted);
+  }
+  .what ul {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 8px 0 0;
+    padding-left: 20px;
+    font: 400 17px/1.5 var(--body);
+    max-width: 75ch;
+  }
+  .see {
+    align-self: flex-start;
+    margin-top: 8px;
+    font: 700 12px/1.4 var(--mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-bottom: 3px solid var(--pink);
+  }
+  .creds {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px 56px;
+    padding-top: 30px;
+    border-top: 3px solid var(--panel);
+  }
+  .creds div {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .creds .mono-label {
+    font-size: 12px;
+    letter-spacing: 0.18em;
+  }
+  .cred {
+    font: 700 18px/1.3 var(--body);
+  }
+</style>

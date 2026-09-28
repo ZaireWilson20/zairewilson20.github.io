@@ -4,11 +4,13 @@ import siteRaw from '../data/site.yml?raw';
 import projectsRaw from '../data/projects.yml?raw';
 import nowRaw from '../data/now.yml?raw';
 import experienceRaw from '../data/experience.yml?raw';
+import galleryRaw from '../data/gallery.yml?raw';
 
 export const site = parse(siteRaw);
 export const projects: any[] = parse(projectsRaw).map((p: any) => p.project);
 export const now: any[] = parse(nowRaw);
 export const experience = parse(experienceRaw);
+export const gallery: any[] = parse(galleryRaw);
 
 /** Prefix root-relative links with the configured base path. */
 export const url = (path: string) =>

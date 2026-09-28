@@ -1,0 +1,88 @@
+---
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Aside from '../../components/Aside.astro';
+import { site, url, getPosts, tagSlug, formatDate, excerpt, type Post } from '../../lib/data';
+
+// Page 1 is /blog, later pages are /blog/page2, /blog/page3 ... (same as the old Jekyll paginate_path)
+export async function getStaticPaths() {
+  const { getPosts, site } = await import('../../lib/data');
+  const posts = await getPosts();
+  const size = site.paginate ?? 5;
+  const totalPages = Math.max(1, Math.ceil(posts.length / size));
+  return Array.from({ length: totalPages }, (_, i) => ({
+    params: { page: i === 0 ? undefined : `page${i + 1}` },
+    props: { current: i + 1, totalPages, posts: posts.slice(i * size, (i + 1) * size) },
+  }));
+}
+
+interface Props { current: number; totalPages: number; posts: Post[] }
+const { current, totalPages, posts } = Astro.props;
+const pageHref = (n: number) => url(n === 1 ? '/blog' : `/blog/page${n}`);
+
+// Show up to 5 page links around the current page
+const min = Math.max(1, Math.floor(current / 5) * 5);
+const max = Math.min(totalPages, (Math.floor(current / 5) + 1) * 5 - 1);
+const pages = Array.from({ length: max - min + 1 }, (_, i) => min + i);
+---
+<Base title={current > 1 ? `Blog page ${current}` : 'Blog'} wrap="container-home">
+  <div id="home">
+    <section id="header-nav">
+      <Header current="blog" />
+    </section>
+    <section id="header-content">
+      <h1>{site.title}</h1>
+    </section>
+    <section class="bg"></section>
+    <div class="home">
+      <aside id="aside" class="col-md-4">
+        <Aside />
+      </aside>
+      <section id="posts">
+        {posts.length === 0 && <div class="comingSoon">UNDER CONSTRUCTION, COMING SOON!</div>}
+        {posts.map((post) => {
+          const text = excerpt(post.body);
+          return (
+            <div class="post">
+              <a href={post.href}>
+                <div class="post-wrap">
+                  <div class="text-warp">
+                    <h3 class="title">{post.data.title}</h3>
+                    <p class="excerpt">{text.length > 50 ? text : post.data.subtitle}</p>
+                    <div>
+                      <span class="meta">{formatDate(post.date)}</span>
+                      <ul class="tag-wrap">
+                        {post.data.tags.map((tag) => (
+                          <a href={url(`/tags#${tagSlug(tag)}`)}><li class="tag-sm">{tag}</li></a>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                  {post.data.image && (
+                    <div class="img-wrap"><img src={url(post.data.image)} alt="" /></div>
+                  )}
+                </div>
+              </a>
+            </div>
+          );
+        })}
+
+        {totalPages > 1 && (
+          <div id="pagination">
+            <ul>
+              {min !== 1 && (
+                <a href={pageHref(min - 1)}><li class="btn-rounded prev"><i class="fas fa-angle-double-left"></i></li></a>
+              )}
+              {pages.map((n) => (
+                <a href={pageHref(n)} class={n === current ? 'selected' : ''}><li class="btn-rounded">{n}</li></a>
+              ))}
+              {max !== totalPages && (
+                <a href={pageHref(max + 1)}><li class="btn-rounded next"><i class="fas fa-angle-double-right"></i></li></a>
+              )}
+            </ul>
+          </div>
+        )}
+      </section>
+    </div>
+  </div>
+</Base>

@@ -1,0 +1,59 @@
+---
+import Base from './Base.astro';
+import Header from '../components/Header.astro';
+import Icons from '../components/Icons.astro';
+import Now from '../components/Now.astro';
+import Experience from '../components/Experience.astro';
+import Projects from '../components/Projects.astro';
+import { site, url } from '../lib/data';
+
+interface Props { current?: 'portfolio' }
+const profile = site.profile;
+---
+<Base title="Portfolio" subtitle={profile.headline}>
+  <Header current={Astro.props.current} />
+
+  <div id="protfolio" slot="outside">
+    <section id="about-me">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="img-wrap col-12 col-md-4">
+            <div class="img">
+              <img src={url(profile.image)} alt="user_image">
+            </div>
+          </div>
+          <div class="text-wrap col-12 col-md-8">
+            <h2 class="username">{profile.username}</h2>
+            {profile.headline && <p class="headline">{profile.headline}</p>}
+            <p class="description">{profile.description}</p>
+            <ul id="icons">
+              <Icons />
+            </ul>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <a href={url(profile.resume_url)} target="_blank" rel="noopener" class="btn-wrap col-4" style="padding-left: 0;">
+            <p class="resumePdf">RESUME LINK</p>
+          </a>
+        </div>
+      </div>
+      <div class="bg"></div>
+    </section>
+
+    <nav id="section-nav" aria-label="Portfolio sections">
+      <a href="#now">Currently Building</a>
+      <a href="#experience">Experience</a>
+      <a href="#work">Selected Work</a>
+    </nav>
+
+    <Now />
+    <Experience />
+    <Projects />
+
+    <script is:inline>
+      document.addEventListener("DOMContentLoaded", function () {
+        Prism.highlightAll();
+      });
+    </script>
+  </div>
+</Base>

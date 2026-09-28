@@ -1,0 +1,80 @@
+#protfolio {
+  #about-me {
+    position: relative;
+    margin-bottom: 50px;
+    .row {
+      @extend %page-padding;
+    }
+    .img-wrap {
+      text-align: center;
+      .img {
+        overflow: hidden;
+        display: inline-block;
+        width: 180px;
+        height: 180px;
+        border-radius: 15px;
+        img {
+          width: 100%;
+        }
+      }
+    }
+    .text-wrap {
+      color: #fff;
+      .headline {
+        margin: 6px 0 0;
+        font-size: 0.9rem;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        color: $theme-bright;
+      }
+      .description {
+        margin: 10px 0;
+        font-size: 0.95rem;
+      }
+      @media (max-width: 767px) {
+        margin-top: 15px;
+        text-align: center;
+      }
+      #icons li {
+        i {
+          width: 35px;
+          height: 35px;
+          color: #fff;
+          background-color: $theme-dark;
+          line-height: 35px;
+        }
+        i:hover {
+          background-color: #fff;
+          color: $theme-dark;
+        }
+      }
+    }
+
+    .bg {
+      content: "";
+      z-index: -1;
+      position: absolute;
+      width: 100%;
+      height: calc(100% + 110px);
+      top: -55px;
+      background-color: $theme-dark;
+    }
+
+    .btn-wrap{
+      width: auto;
+      .resumePdf{
+        background-color: #fff;
+        color: $theme-color;
+        border-radius: 40px;
+        padding: 20px;
+        width: fit-content;
+        font-weight: 600;
+        text-align: center;
+      }
+      .resumePdf:hover {
+        background-color: #dadada;
+      }
+    }
+
+  }
+}

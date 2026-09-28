@@ -1,5 +1,11 @@
-*.gem
-.bundle
-.sass-cache
-_site
-Gemfile.lock
+# build output
+dist/
+.astro/
+
+# dependencies
+node_modules/
+
+# logs / env
+npm-debug.log*
+.env*
+.DS_Store

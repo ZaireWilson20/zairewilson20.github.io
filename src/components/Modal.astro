@@ -1,0 +1,50 @@
+---
+import { url } from '../lib/data';
+
+interface Props { project: any }
+const { project } = Astro.props;
+---
+<div id={project.id} class="modal">
+  <div class="modal-background" onclick="close_modal()"></div>
+  <div class="modal-content">
+    <div class="close-modal" onclick="close_modal()">
+      <p>&times;</p>
+    </div>
+    <div class="header">
+      <p class="title">{project.title}</p>
+      <p class="date">{project.date}</p>
+      <p class="summary">{project.summary}</p>
+    </div>
+    <div class="content">
+      {(project.contents ?? []).map((content: any) => (
+        <div class="sub-content">
+          <div class="title">{content.title}</div>
+          {content.image && <img src={url(`/assets/project/${content.image}`)} alt={content.title} loading="lazy" />}
+          <div class="description" set:html={content.description ?? ''} />
+          {content.videos && (
+            <div class="videos">
+              {content.videos.map((video: any) => (
+                <div class="video">
+                  <p class="video-title">{video.title}</p>
+                  <div class="video-frame">
+                    <iframe src={`https://www.youtube-nocookie.com/embed/${video.youtube}`} title={video.title} loading="lazy" allowfullscreen></iframe>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+          {content.blogPosts && (
+            <div class="blogPosts">
+              <div class="pref">If you're interested in learning more about my development process, check out these blog posts:</div>
+              <ul>
+                {content.blogPosts.map((blog: any) => (
+                  <a class="post" href={url(`/${blog.url}`)}><li>{blog.title}</li></a>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</div>

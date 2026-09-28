@@ -1,0 +1,21 @@
+---
+import { site } from '../lib/data';
+
+const i = site.icons ?? {};
+const icons = [
+  i.email && { href: `mailto:${i.email}`, icon: 'fas fa-envelope', label: 'Email' },
+  i.linkedin && { href: i.linkedin, icon: 'fab fa-linkedin', label: 'LinkedIn' },
+  i.github && { href: `https://github.com/${i.github}`, icon: 'fab fa-github', label: 'GitHub' },
+  i.gitlab && { href: `https://gitlab.com/${i.gitlab}`, icon: 'fab fa-gitlab', label: 'GitLab' },
+  i.bitbucket && { href: `https://bitbucket.org/${i.bitbucket}`, icon: 'fab fa-bitbucket', label: 'Bitbucket' },
+  i.twitter && { href: `https://twitter.com/${i.twitter}`, icon: 'fab fa-twitter', label: 'Twitter' },
+  i.youtube && { href: `https://www.youtube.com/user/${i.youtube}`, icon: 'fab fa-youtube', label: 'YouTube' },
+  i.facebook && { href: `https://www.facebook.com/${i.facebook}`, icon: 'fab fa-facebook-f', label: 'Facebook' },
+  i.instagram && { href: `https://instagram.com/${i.instagram}`, icon: 'fab fa-instagram', label: 'Instagram' },
+].filter(Boolean) as { href: string; icon: string; label: string }[];
+---
+{icons.map((ic) => (
+  <li>
+    <a href={ic.href} aria-label={ic.label}><i class={ic.icon}></i></a>
+  </li>
+))}

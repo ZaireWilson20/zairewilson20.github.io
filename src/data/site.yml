@@ -1,0 +1,26 @@
+# Site-wide settings (was _config.yml theme_settings)
+title: Zaire Wilson
+favicon: /assets/favicon.ico
+
+profile:
+  image: /assets/img/ZAvatar.webp
+  username: Zaire Wilson
+  description: Programmer of Games, Watcher of Anime, Father of Cats
+  headline: Software Engineer • Real-Time Simulation & XR • Full-Stack Applications
+  location: Charleston, SC
+  resume_url: /Documents/Zaire_Wilson_Resume_Micron.pdf
+
+# Social icons (leave blank to hide)
+icons:
+  email: zaire.r.wilson@gmail.com
+  linkedin: https://www.linkedin.com/in/zairewilson/
+  github: ZaireWilson20
+  gitlab:
+  bitbucket:
+  twitter:
+  youtube:
+  facebook:
+  instagram:
+
+# Posts per page on /blog
+paginate: 5

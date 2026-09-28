@@ -3,16 +3,16 @@
 # While `npm run dev` is running, save this file to see the change, or open
 # http://localhost:4321/sheet to compare every variant side by side (dev only).
 
-nav: a        # a: text links, underline on current room · b: floor-plan strip · c: crooked door plaques
-switch: a     # light switch. a: toggle plate · b: pull chain · c: vintage push-button
-hero: a       # a: crooked arch · b: pink door left ajar · c: front door with peephole + mail slot
+nav: c        # a: text links, underline on current room · b: floor-plan strip · c: crooked door plaques
+switch: b     # light switch. a: toggle plate · b: pull chain · c: vintage push-button
+hero: b       # a: crooked arch · b: pink door left ajar · c: front door with peephole + mail slot
 avatar: auto  # auto (a with hero a, b otherwise) · a: multiplied onto wall · b: flattened · c: ink duotone
-floor: a      # a: perspective checker · b: flat tile + mustard baseboard · c: pink argyle, off-kilter
+floor: c      # a: perspective checker · b: flat tile + mustard baseboard · c: pink argyle, off-kilter
 sign: b       # room header. a: quiet eyebrow + title · b: hanging enamel sign · c: arched door plate
-workshop: a   # a: card with status pill · b: tag on a pegboard · c: bench row with label-maker strip
-frame: a      # Hallway project frame. a: wire + nail · b: museum mat · c: arched, color = category
+workshop: b   # a: card with status pill · b: tag on a pegboard · c: bench row with label-maker strip
+frame: c      # Hallway project frame. a: wire + nail · b: museum mat · c: arched, color = category
 tile: mix     # Gallery tiles. mix: each tile's own variant from gallery.yml · a: colored mat · b: plinth · c: spotlight
-button: a     # a: pill, hard shadow · b: doorbell plate · c: inline link, fill rises on hover
+button: b     # a: pill, hard shadow · b: doorbell plate · c: inline link, fill rises on hover
 footer: a     # a: doormat · b: basement baseboard + wall outlet
 
 motion:

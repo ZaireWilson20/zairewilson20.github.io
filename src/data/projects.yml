@@ -1,9 +1,16 @@
-# Selected Work cards on the portfolio page (rendered in this order).
-# id: used by now.yml / experience.yml to open this card's modal.
+# Hallway frames on the home page (rendered in this order), each with a details modal.
+# id: used by now.yml / experience.yml to open this project's modal.
+# Frame fields: short_title, years, blurb, color (mustard|pink|sky|cream), tilt (degrees).
+# The modal uses title, date, summary, url, and contents.
 
 - project:
     id : five-mics
     kind : Professional # badge shown on the card
+    short_title : "Five Mics"
+    years : "2024 – 2026"
+    color : mustard
+    tilt : -2
+    blurb : "Server-authoritative hip-hop TCG with a designer-facing card authoring tool."
     print: True
     modal: True
     url: https://fivemics.io/digital
@@ -207,6 +214,11 @@
 - project :
     id : pandoras-box
     kind : Academic # badge shown on the card
+    short_title : "Pandora's Box"
+    years : "2019 – 2020"
+    color : sky
+    tilt : 1.5
+    blurb : "Mixed reality escape room with motion-captured props. GameFest 2020 Technical Excellence Award."
     print : True
     modal : True
     url : http://haelmichael.com/escaperoom.html # Teammate's page with full photo gallery
@@ -248,6 +260,11 @@
 - project :
     id : golf-plus
     kind : Professional # badge shown on the card
+    short_title : "GOLF+"
+    years : "2022 – 2024"
+    color : mustard
+    tilt : -1
+    blurb : "Gameplay systems for a top-selling live-service VR golf sim."
     print : True
     modal : True
     url : https://www.golfplusvr.com/
@@ -278,6 +295,11 @@
 - project :
     id : grocery-run
     kind : Personal # badge shown on the card
+    short_title : "Grocery Run"
+    years : "2021 – Now"
+    color : pink
+    tilt : 2.5
+    blurb : "Thesis game about African American humor in games, now being rebuilt in VR."
     print : True # If 'False' is selected, it will not be displayed in 'home.html > aside > .proj-content'. 
     modal : True # If 'True' is selected, modal can open in 'portfolio.html'. 
     url : https://zwilson20.itch.io/grocery-run # Full URL
@@ -309,6 +331,11 @@
 - project :
     id : jag
     kind : Research # badge shown on the card
+    short_title : "The JAG"
+    years : "2019 – 2020"
+    color : cream
+    tilt : -1.8
+    blurb : "Four-player cooperative cooking game for RPI CogWorks team-performance research."
     print : True
     modal : True
     url : https://mathpsych.org/presentation/1226#/document

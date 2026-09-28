@@ -1,0 +1,23 @@
+# Which variant of each house component the site uses.
+# Letters match the Claude Design export (design/Zaire House Concept.html).
+# While `npm run dev` is running, save this file to see the change, or open
+# http://localhost:4321/sheet to compare every variant side by side (dev only).
+
+nav: c        # a: text links, underline on current room · b: floor-plan strip · c: crooked door plaques
+switch: b     # light switch. a: toggle plate · b: pull chain · c: vintage push-button
+hero: b       # a: crooked arch · b: pink door left ajar · c: front door with peephole + mail slot
+avatar: auto  # auto (a with hero a, b otherwise) · a: multiplied onto wall · b: flattened · c: ink duotone
+floor: c      # a: perspective checker · b: flat tile + mustard baseboard · c: pink argyle, off-kilter
+sign: b       # room header. a: quiet eyebrow + title · b: hanging enamel sign · c: arched door plate
+workshop: b   # a: card with status pill · b: tag on a pegboard · c: bench row with label-maker strip
+frame: c      # Hallway project frame. a: wire + nail · b: museum mat · c: arched, color = category
+tile: mix     # Gallery tiles. mix: each tile's own variant from gallery.yml · a: colored mat · b: plinth · c: spotlight
+button: b     # a: pill, hard shadow · b: doorbell plate · c: inline link, fill rises on hover
+footer: a     # a: doormat · b: basement baseboard + wall outlet
+
+motion:
+  tilt: true      # crooked frames, tiles, and plaques
+  breathe: true   # doorway breathing + swinging signs
+  flicker: true   # house flickers when the light switch flips
+  roomSlide: true # rooms slide in as you scroll to them
+  cursor: true    # doorknob cursor

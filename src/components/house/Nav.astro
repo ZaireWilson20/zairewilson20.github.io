@@ -1,0 +1,171 @@
+---
+// Design: Nav. a = text links with an underline on the current room,
+// b = floor-plan strip (current room filled), c = crooked door plaques that straighten on hover.
+import LightSwitch from './LightSwitch.astro';
+import { url, design, type Variant } from '../../lib/data';
+
+interface Props {
+  /** true on the house page itself (room links become in-page anchors) */
+  home?: boolean;
+  current?: 'blog';
+  variant?: Variant;
+  switchVariant?: Variant;
+}
+const { home = false, current, variant = design.nav, switchVariant = design.switch } = Astro.props;
+const roomHref = (id: string) => (home ? `#${id}` : url(`/#${id}`));
+// name, room number, plaque color, plaque tilt, floor-plan cell width
+const links = [
+  { name: 'Workshop', num: '01', color: 'pink', tilt: -3, w: 124, href: roomHref('room-workshop'), room: 'room-workshop' },
+  { name: 'Hallway', num: '02', color: 'sky', tilt: 2, w: 150, href: roomHref('room-hallway'), room: 'room-hallway' },
+  { name: 'Gallery', num: '03', color: 'mustard', tilt: -1.5, w: 110, href: roomHref('room-gallery'), room: 'room-gallery' },
+  { name: 'Study', num: '04', color: 'cream', tilt: 2.5, w: 96, href: roomHref('room-study'), room: 'room-study' },
+  { name: 'Blog', num: '05', color: 'pink', tilt: -2, w: 84, href: url('/blog'), room: undefined },
+];
+---
+<header class:list={['nav', 'wrap', `v-${variant}`]}>
+  <a class="logo" href={url('/')} aria-label="Zaire Wilson, home">zw</a>
+  <nav aria-label="Rooms">
+    <div class="links">
+      {links.map((l) => (
+        <a
+          href={l.href}
+          data-room-link={l.room}
+          data-color={l.color}
+          aria-current={l.name === 'Blog' && current === 'blog' ? 'page' : undefined}
+          style={`--w: ${l.w}px; --plaque-tilt: ${l.tilt}deg`}
+        >
+          {variant !== 'a' && <span class="num">{variant === 'b' ? `RM ${l.num}` : l.num}</span>}
+          <span class="name">{l.name}</span>
+        </a>
+      ))}
+    </div>
+    <LightSwitch size="sm" variant={switchVariant} />
+  </nav>
+</header>
+
+<style>
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px 24px;
+    padding-block: 20px;
+    flex-wrap: wrap;
+  }
+  .logo {
+    font: 400 32px/1 var(--disp);
+    color: var(--text);
+    text-shadow: 3px 3px 0 var(--pink);
+    letter-spacing: -0.02em;
+    text-decoration: none;
+  }
+  .logo:hover {
+    color: var(--text);
+  }
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 12px 22px;
+    flex-wrap: wrap;
+  }
+  .links {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .links a {
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  /* a: text links, underline on the current room */
+  .v-a .links {
+    gap: 12px clamp(14px, 3vw, 30px);
+  }
+  .v-a .links a {
+    font: 600 18px/1 var(--body);
+    padding-bottom: 5px;
+    border-bottom: 4px solid transparent;
+  }
+  .v-a .links a:hover {
+    color: var(--pink);
+  }
+  .v-a .links a.is-current,
+  .v-a .links a[aria-current='page'] {
+    border-bottom-color: var(--pink);
+  }
+
+  /* b: floor-plan strip */
+  .v-b .links {
+    background: var(--panel);
+    border: 3px solid var(--ink);
+    box-shadow: 5px 5px 0 var(--ink);
+  }
+  .v-b .links a {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 3px;
+    width: var(--w);
+    height: 50px;
+    padding: 6px 10px;
+    border-left: 3px solid var(--ink);
+    margin-left: -3px;
+  }
+  .v-b .num {
+    font: 700 10px/1 var(--mono);
+    letter-spacing: 0.12em;
+  }
+  .v-b .name {
+    font: 700 15px/1 var(--body);
+  }
+  .v-b .links a:hover {
+    background: var(--wall-2);
+    color: var(--text);
+  }
+  .v-b .links a.is-current,
+  .v-b .links a[aria-current='page'] {
+    background: var(--mustard);
+    color: var(--ink);
+  }
+
+  /* c: crooked door plaques */
+  .v-c .links {
+    gap: 12px 16px;
+  }
+  .v-c .links a {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    padding: 8px 14px;
+    background: var(--accent);
+    color: var(--ink);
+    border: 3px solid var(--ink);
+    border-radius: 6px;
+    box-shadow: 4px 4px 0 var(--ink);
+    transform: rotate(calc(var(--tilt) * var(--plaque-tilt)));
+    transition: transform 0.3s cubic-bezier(0.3, 1.6, 0.5, 1);
+  }
+  .v-c .num {
+    font: 700 11px/1 var(--mono);
+  }
+  .v-c .name {
+    font: 700 16px/1 var(--body);
+  }
+  .v-c .links a:hover,
+  .v-c .links a.is-current,
+  .v-c .links a[aria-current='page'] {
+    color: var(--ink);
+    transform: rotate(0deg) translateY(-3px);
+  }
+
+  @media (max-width: 520px) {
+    .v-a .links a {
+      font-size: 16px;
+    }
+    .v-b .links a {
+      width: auto;
+      padding-inline: 8px;
+    }
+  }
+</style>

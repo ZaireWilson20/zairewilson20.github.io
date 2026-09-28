@@ -1,9 +1,7 @@
 ---
-import Base from '../layouts/Base.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+import House from '../layouts/House.astro';
 import { render } from 'astro:content';
-import { getPosts, formatDate, type Post } from '../lib/data';
+import { url, tagSlug, formatDate, type Post } from '../lib/data';
 
 // Blog posts live at /YYYY/MM/DD/slug.html, matching the old Jekyll permalinks
 export async function getStaticPaths() {
@@ -15,42 +13,154 @@ interface Props { post: Post }
 const { post } = Astro.props;
 const { Content } = await render(post);
 ---
-<Base title={post.data.title} subtitle={post.data.subtitle} image={post.data.image} tags={post.data.tags}>
-  <Header />
-  <div id="post">
-    <section class="post-header">
-      <h1 class="title">{post.data.title}</h1>
-      <p class="subtitle">{post.data.subtitle}</p>
-      <p class="meta">{formatDate(post.date)}</p>
-    </section>
-    <section class="post-content">
+<House title={post.data.title} description={post.data.subtitle} image={post.data.image} tags={post.data.tags} current="blog" code>
+  <article class="post">
+    <header class="wrap col head">
+      <a class="back" href={url('/blog')}>← The Library</a>
+      <p class="date">{formatDate(post.date)}</p>
+      <h1>{post.data.title}</h1>
+      {post.data.subtitle && <p class="subtitle">{post.data.subtitle}</p>}
+      {post.data.tags.length > 0 && (
+        <ul class="tags">
+          {post.data.tags.map((t, i) => (
+            <li><a class="pill" data-color={['pink', 'sky', 'mustard'][i % 3]} href={url(`/tags#${tagSlug(t)}`)}>{t}</a></li>
+          ))}
+        </ul>
+      )}
+    </header>
+    <div class="wrap col prose">
       <Content />
-    </section>
-  </div>
+    </div>
+  </article>
+</House>
 
-  <div id="top" class="top-btn" onclick="moveTop()">
-    <i class="fas fa-chevron-up"></i>
-  </div>
+<style>
+  .post {
+    padding-block: clamp(32px, 6vw, 64px) clamp(64px, 9vw, 104px);
+  }
+  /* Header and body share one centered reading column */
+  .col {
+    max-width: calc(760px + 2 * var(--gutter));
+  }
+  .head {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 40px;
+  }
+  .back {
+    font: 700 13px/1 var(--mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-bottom: 3px solid var(--pink);
+    padding-bottom: 3px;
+    margin-bottom: 12px;
+  }
+  .date {
+    margin: 0;
+    font: 400 13px/1 var(--mono);
+    letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+  h1 {
+    margin: 0;
+    font: 400 clamp(38px, 6vw, 64px) / 1 var(--disp);
+    letter-spacing: -0.01em;
+    text-shadow: 4px 4px 0 var(--pink);
+    text-wrap: balance;
+  }
+  .subtitle {
+    margin: 0;
+    font: 700 clamp(18px, 2.4vw, 22px) / 1.4 var(--body);
+    color: var(--muted);
+  }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .tags a {
+    background: var(--accent);
+    text-decoration: none;
+  }
 
-  <Footer />
-
-  <script is:inline>
-    var lastScrollTop = 0;
-    window.onscroll = function () {
-      var st = document.body.scrollTop || document.documentElement.scrollTop;
-      var top = document.getElementById("top");
-      if (st > 250) {
-        top.style.display = "block";
-        top.style.opacity = st > lastScrollTop ? 0 : 1;
-      } else {
-        top.style.opacity = 0;
-        if (st > lastScrollTop) top.style.display = "none";
-      }
-      lastScrollTop = st <= 0 ? 0 : st;
-    };
-    function moveTop() {
-      document.body.scrollTop = 0;
-      document.documentElement.scrollTop = 0;
-    }
-  </script>
-</Base>
+  /* ---- Article body (rendered Markdown) ---- */
+  .prose {
+    font: 400 18px/1.7 var(--body);
+    overflow-wrap: break-word;
+  }
+  .prose :global(p) {
+    margin: 0 0 1.1em;
+  }
+  .prose :global(h2) {
+    margin: 2.2em 0 0.6em;
+    font: 800 clamp(26px, 3.5vw, 34px) / 1.15 var(--body);
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  .prose :global(h3) {
+    margin: 1.8em 0 0.5em;
+    font: 700 22px/1.25 var(--body);
+  }
+  .prose :global(a) {
+    text-decoration-color: var(--pink);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+  .prose :global(strong) {
+    color: var(--text);
+  }
+  .prose :global(ul),
+  .prose :global(ol) {
+    padding-left: 1.3em;
+    margin: 0 0 1.1em;
+  }
+  .prose :global(li) {
+    margin-bottom: 0.4em;
+  }
+  .prose :global(code:not([class*='language-'])) {
+    padding: 1px 6px;
+    background: var(--panel);
+    border-radius: 4px;
+    font: 400 0.85em/1 var(--mono);
+  }
+  .prose :global(pre) {
+    margin: 1.4em 0 1.8em !important;
+    padding: 18px 20px !important;
+    border: 4px solid var(--ink);
+    border-radius: 10px;
+    box-shadow: 8px 8px 0 var(--ink);
+    overflow-x: auto;
+    font-size: 14px;
+  }
+  .prose :global(figure.image-comp) {
+    margin: 2em 0;
+    text-align: center;
+  }
+  .prose :global(.fig-img) {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    margin: 0 auto;
+    border: 4px solid var(--ink);
+    box-shadow: 8px 8px 0 var(--ink);
+    background: var(--cream);
+  }
+  .prose :global(figcaption) {
+    margin-top: 14px;
+    font: 400 13px/1.4 var(--mono);
+    letter-spacing: 0.04em;
+    color: var(--muted);
+  }
+  .prose :global(blockquote) {
+    margin: 1.4em 0;
+    padding: 4px 0 4px 20px;
+    border-left: 6px solid var(--mustard);
+    color: var(--muted);
+  }
+</style>

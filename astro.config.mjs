@@ -6,18 +6,10 @@ export default defineConfig({
   // Emit /portfolio.html, /tags.html, /2024/08/27/post.html ... to match the old Jekyll URLs
   build: { format: 'file' },
   trailingSlash: 'never',
+  // The portfolio used to live at /portfolio; it's the home page now
+  redirects: { '/portfolio': '/' },
   markdown: {
     // Prism classes, styled by /assets/css/highlightTheme.css (same theme the project modals use)
     syntaxHighlight: 'prism',
-  },
-  vite: {
-    css: {
-      preprocessorOptions: {
-        scss: {
-          // The Grape theme SCSS still uses @import and legacy color functions
-          silenceDeprecations: ['import', 'global-builtin', 'color-functions', 'slash-div', 'if-function'],
-        },
-      },
-    },
   },
 });

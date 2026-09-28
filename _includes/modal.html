@@ -17,6 +17,18 @@
         <img src="{{ site.url }}/assets/project/{{ content.image }}" alt="{{ content.title }}">
         {% endif %}
         <div class="description">{{ content.description }}</div>
+        {% if content.videos %}
+        <div class="videos">
+          {% for video in content.videos %}
+          <div class="video">
+            <p class="video-title">{{ video.title }}</p>
+            <div class="video-frame">
+              <iframe src="https://www.youtube-nocookie.com/embed/{{ video.youtube }}" title="{{ video.title }}" loading="lazy" allowfullscreen></iframe>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
         {% if content.blogPosts %}
         <div class="blogPosts"> 
           <div class="pref">If you're interested in learning more about my development process, check out these blog posts:</div>

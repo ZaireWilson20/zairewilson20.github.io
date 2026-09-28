@@ -27,3 +27,42 @@
                 tag: 
                 url: 2024/08/27/grocery-run-state-machine.html
             
+
+- project :
+    print : True
+    modal : True
+    url : http://haelmichael.com/escaperoom.html # Teammate's page with full photo gallery
+    image : "PandorasBox_players1.jpg" # path: assets/project/
+    date : 2019 - 2020
+    title : Pandora's Box - Mixed Reality Escape Room
+    summary : RPI CAVE Lab - Technical Excellence Award, RPI GameFest 2020
+    description : A multiplayer mixed reality escape room built in an immersive CAVE, using Vicon motion capture so players solve puzzles by physically handling real props. Winner of the Technical Excellence Award at RPI GameFest 2020.
+    contents :
+        - title : Project Overview
+          image : "PandorasBox_room.jpg"
+          description : <p>You play as a crew of four thieves who have broken into The Contemporary Greek Museum, a new gallery that puts fresh takes on Greek myth on display. Your goal is to steal Pandora's Box, and to get to it you have to work past a security system built into the exhibits themselves. You have 30 minutes before security catches on.</p>
+            <p>The room was built in RPI's CAVE, a room-scale projection environment ringed with optical motion-capture cameras. That setup made room for puzzles a standard escape room can't pull off, since physical objects and player movement feed straight into the virtual scene. Four players share the room, each wearing a motion-tracked "Top Hat."</p>
+        - title : My Role
+          image :
+          description : <li><b>Motion-Captured Props</b> - Co-developed the room's use of Vicon optical motion capture to track physical props and turn real-world handling into live virtual puzzle state.</li>
+            <li><b>Physical-to-Digital Integration</b> - Linked the tracked physical objects to the simulated environment, so players solved puzzles with their hands instead of controllers.</li>
+        - title : Puzzle Demos
+          image :
+          description : <p>These puzzles were designed for several players at once. Because of the pandemic, they were recorded as solo walkthroughs.</p>
+          videos :
+            - title : Music Note Puzzle
+              youtube : LHcWtdw0JcA
+            - title : Medusa Puzzle
+              youtube : klkgI2-2Scg
+            - title : Card Puzzle 1
+              youtube : H7GTKBN6lsg
+            - title : Card Puzzle 2
+              youtube : 0PV0tpvGVVQ
+            - title : Map Puzzle
+              youtube : 6MLdI5Am1q4
+            - title : Ring Puzzle
+              youtube : 6uUCLfvZWXo
+            - title : Tangram Puzzle
+              youtube : sTthlfPFyUg
+            - title : Stick Puzzle
+              youtube : M1H35X-CoDM

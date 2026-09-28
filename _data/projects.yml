@@ -1,9 +1,14 @@
+# Selected Work cards on the portfolio page (rendered in this order).
+# id: used by now.yml / experience.yml to open this card's modal.
+
 - project:
+    id : five-mics
+    kind : Professional # badge shown on the card
     print: True
     modal: True
     url: https://fivemics.io/digital
     image: "FiveMicsCover.png"
-    date: 09/2024 - Present
+    date: 09/2024 - 05/2026
     title: Five Mics - The Hip Hop Trading Card Game
     summary: Lead Engineer - Server-Authoritative Multiplayer & Custom Tooling
     description: Sole engineer on a 4-person team building a hybrid physical/digital TCG. Built the gameplay systems, server-owned networking, and Unity editor tools so designers can make new cards without writing code.
@@ -198,14 +203,58 @@
           <li>Server-authoritative multiplayer prototype</li>
           <li>50+ cards authored through the custom Inspector</li>
           <li>Stable playtests</li>
+
 - project :
+    id : pandoras-box
+    kind : Academic # badge shown on the card
+    print : True
+    modal : True
+    url : http://haelmichael.com/escaperoom.html # Teammate's page with full photo gallery
+    image : "PandorasBox_players1.jpg" # path: assets/project/
+    date : 2019 - 2020
+    title : Pandora's Box - Mixed Reality Escape Room
+    summary : RPI CAVE Lab - Technical Excellence Award, RPI GameFest 2020
+    description : A multiplayer mixed reality escape room built in an immersive CAVE, using Vicon motion capture so players solve puzzles by physically handling real props. Winner of the Technical Excellence Award at RPI GameFest 2020.
+    contents :
+        - title : Project Overview
+          image : "PandorasBox_room.jpg"
+          description : <p>You play as a crew of four thieves who have broken into The Contemporary Greek Museum, a new gallery that puts fresh takes on Greek myth on display. Your goal is to steal Pandora's Box, and to get to it you have to work past a security system built into the exhibits themselves. You have 30 minutes before security catches on.</p>
+            <p>The room was built in RPI's CAVE, a room-scale projection environment ringed with optical motion-capture cameras. That setup made room for puzzles a standard escape room can't pull off, since physical objects and player movement feed straight into the virtual scene. Four players share the room, each wearing a motion-tracked "Top Hat."</p>
+        - title : My Role
+          image :
+          description : <li><b>Motion-Captured Props</b> - Co-developed the room's use of Vicon optical motion capture to track physical props and turn real-world handling into live virtual puzzle state.</li>
+            <li><b>Physical-to-Digital Integration</b> - Linked the tracked physical objects to the simulated environment, so players solved puzzles with their hands instead of controllers.</li>
+        - title : Puzzle Demos
+          image :
+          description : <p>These puzzles were designed for several players at once. Because of the pandemic, they were recorded as solo walkthroughs.</p>
+          videos :
+            - title : Music Note Puzzle
+              youtube : LHcWtdw0JcA
+            - title : Medusa Puzzle
+              youtube : klkgI2-2Scg
+            - title : Card Puzzle 1
+              youtube : H7GTKBN6lsg
+            - title : Card Puzzle 2
+              youtube : 0PV0tpvGVVQ
+            - title : Map Puzzle
+              youtube : 6MLdI5Am1q4
+            - title : Ring Puzzle
+              youtube : 6uUCLfvZWXo
+            - title : Tangram Puzzle
+              youtube : sTthlfPFyUg
+            - title : Stick Puzzle
+              youtube : M1H35X-CoDM
+
+- project :
+    id : golf-plus
+    kind : Professional # badge shown on the card
     print : True
     modal : True
     url : https://www.golfplusvr.com/
     image : "Golf+Image.png"
-    date : 02/2022 - 06/2024
+    date : 02/2022 - 09/2024
     title : Golf+
-    summary : Software Engineer - Gameplay
+    summary : Gameplay Engineer
     description : Gameplay Engineer at Golf Plus VR, the studio behind Golf+, a top selling, live-service, VR golf simulation game for the Oculus platform.
     contents :
         - title : Gameplay Team Member
@@ -225,15 +274,48 @@
           description : <li>In Game "Gizmos" to help non engineering devs(QA, Product, Community team) visualize gameplay systems.</li>
             <li>Event Logging for Data Analytics and Debugging through analytic software Amplitude's API.</li>
             <li>Shell scripting to allow Slack commands to trigger processes on build server.</li>
-            
+
 - project :
+    id : grocery-run
+    kind : Personal # badge shown on the card
+    print : True # If 'False' is selected, it will not be displayed in 'home.html > aside > .proj-content'. 
+    modal : True # If 'True' is selected, modal can open in 'portfolio.html'. 
+    url : https://zwilson20.itch.io/grocery-run # Full URL
+    image : "GroceryRunCover.png" # path: assets/project/
+    date : 01/2021 - present
+    title : Grocery Run
+    summary : Master's Thesis Project
+    description : Was initially an auxiliary component of my master's thesis project "Signifyin’ Through Games", but I have continued to develop and reimagine the game with the intentions of releasing it as the first project under my independent studio, WokeBoy Media.
+    contents :
+        - title : Grocery Run (2021, Unity)
+          image : "GRVid.gif"
+          description : <p>Originally developed as part of my Master's Thesis "Signifyin’ Through Games," Grocery Run explores African American humor in games. The player, an unnamed Black man, must collect items in a grocery store while avoiding patrolling "Karens".</p>
+            <li><b>Thesis Project Integration</b> - Designed and developed the game as an interactive demonstration of how African American humor and culture can be represented in games, supporting the academic goals of my thesis.</li> 
+            <li><b>2D Gameplay Design</b> - Built a side-scrolling 2D environment in Unity, focusing on fast-paced item collection mechanics under time constraints, while introducing the obstacle of NPCs (Karens) who disrupt the player’s progress.</li> 
+            <li><b>AI Pathfinding and Behavior</b> - Implemented NPC AI in Unity to create Karens with patrol and chase behaviors, using Unity's NavMesh to allow dynamic pathfinding based on player location.</li>
+            <li><b>Collision and Interaction System</b> - Developed a system for player-NPC interactions where getting too close to a Karen triggers a loss of time, forcing the player to balance between item collection and evasion.</li>
+        - title : Grocery Run VR (2023 - present, Unreal Engine 5)
+          image : 
+          description : <p>Redeveloping Grocery Run in VR using Unreal Engine 5. Keeping the core gameplay of collecting groceries and dogdging "Karens", while also adding components that leverage the systems provided by Unreal Engine and OpenXR. Here’s a breakdown of some of the features and challenges I’ve tackled so far:</p>
+            <li><b>Transition to VR Gameplay</b> - Redesigned the game from a 2D Unity project into a 3D Unreal Engine environment, introducing new mechanics for depth and spatial awareness.</li> 
+            <li><b>Modular AI System</b> -  Implemented a flexible state machine in Unreal Engine to handle Karen AI, allowing for easy expansion of NPC behaviors (Idle, Patrol, Chase) through Blueprints and Data Assets, minimizing C++ rewrites.</li> 
+            <li><b>Event-driven Interaction</b> -  Set up a dynamic event system that notifies Karens of player actions (running or triggering in-game events), ensuring coordinated AI responses without relying on global variables.</li>
+            <li><b>Procedural Generation Algorithm Implementation</b> - Using proc-gen algorithms(i.e. Perlin Noise) to create procedural gameplay behavior and generate levels(i.e. grocery placement) at runtime.</li>
+          blogPosts :
+              - title: 'Making Karen Manageable: A Modular State Machine Design'
+                tag: 
+                url: 2024/08/27/grocery-run-state-machine.html
+
+- project :
+    id : jag
+    kind : Research # badge shown on the card
     print : True
     modal : True
     url : https://mathpsych.org/presentation/1226#/document
     image : "JAG_GIF.gif"
     date : 05/2019 - 01/2020
     title : The JAG - Role Stability and Team Performance in a 4-Player Cooperative Cooking Game
-    summary : Undergraduate Reseach Assistant
+    summary : Undergraduate Research Assistant
     description : Funded undergraduate researcher for Rensselaer Polytechnic Institute's CogWorks Lab. Assisted in programming a game under Dr. Wayne D. Gray to help aid Cognitive Science research into CAT(Cooperative Action Task).
     contents :
         - title : Contributions

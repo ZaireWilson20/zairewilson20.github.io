@@ -1,18 +1,6 @@
-#project {
+#work {
   position: relative;
   overflow: hidden;
-  .project-wrap{
-    @extend %page-padding;
-    padding-top: 50px!important;
-    margin-bottom: 55px;
-    p.title {
-      padding-left: 10px;
-      color: $theme-dark;
-      font-size: 25px;
-      font-weight: 600;
-      text-align: center;
-    }
-  }
   .card-container {
     overflow: hidden;
     //display: flex;
@@ -69,6 +57,20 @@
             object-fit: cover;
           }
 
+        }
+        .kind {
+          position: absolute;
+          top: 12px;
+          left: 12px;
+          padding: 3px 10px;
+          border-radius: 20px;
+          background-color: rgba($theme-dark, 0.85);
+          color: #fff;
+          font-size: 0.7rem;
+          font-weight: 600;
+          letter-spacing: 0.04em;
+          text-transform: uppercase;
+          z-index: 1;
         }
         .img-wrap:before {
           content: "";
@@ -169,16 +171,6 @@
       }
     }
   }
-  .bg {
-    content: "";
-    z-index: -99;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0px;
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-
   .card-btn {
     box-sizing: border-box;
     appearance: none;

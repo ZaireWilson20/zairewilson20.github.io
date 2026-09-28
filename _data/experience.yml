@@ -1,0 +1,72 @@
+# Experience timeline shown on the portfolio page (newest first).
+# `project` (optional) is the id of a card in projects.yml; it adds a "See project" button that opens that card's modal.
+
+jobs:
+  - role: Software Developer II
+    company: Scientific Research Corporation
+    note: DOD Contractor
+    location: Charleston, SC
+    start: Dec 2024
+    end: Present
+    highlights:
+      - Custom networking for real-time communication across 200+ dynamic devices in a mixed reality training environment, keeping physical hardware and virtual simulation state in sync.
+      - .NET (C#) web applications, WinForms desktop tools, and ASP.NET Web API services built to NIST security standards and DOD compliance requirements.
+      - GitLab CI/CD pipelines for automated testing in an air-gapped facility.
+      - SQL Server stored procedures, functions, and developer tooling that automate routine database operations.
+    tags: [C#, .NET, ASP.NET, SQL Server, GitLab CI/CD, Mixed Reality]
+
+  - role: Lead Software Engineer (Contract)
+    company: Five Mics Studios
+    location: Remote
+    start: Sep 2024
+    end: May 2026
+    highlights:
+      - Led engineering on a 4-person team, owning client, server-authoritative multiplayer, backend, and tooling end to end.
+      - Shipped the demo behind a $17K, 160+ backer crowdfunding campaign.
+      - Built an ASP.NET Core gateway that provisions dedicated game servers on demand.
+    tags: [Unity, C#, FishNet, ASP.NET Core, Docker, Edgegap]
+    project: five-mics
+
+  - role: Gameplay Engineer
+    company: GOLF+
+    note: VR Golf Simulation
+    location: Remote
+    start: Feb 2022
+    end: Sep 2024
+    highlights:
+      - Physics-based systems for a top-selling live-service VR golf sim, including accidental-hit detection from tracked controller swing data and rules-accurate ball relief.
+      - REST API integration for live multiplayer across a 1,000+ daily user platform; React interfaces on live backend services.
+      - Gameplay telemetry via Amplitude, in-engine visualization tools for QA/product, and hitch/load-time reductions.
+    tags: [Unity, C#, VR, REST, React, Amplitude]
+    project: golf-plus
+
+  - role: Unity Developer
+    company: Meta Gaming Studios
+    note: now Makrö Gaming Studios
+    location: Kennesaw, GA
+    start: Aug 2021
+    end: Feb 2022
+    highlights:
+      - Player-facing front-end UI and client-side gameplay features in Unity (C#) for digital slot titles.
+    tags: [Unity, C#, UI]
+
+  - role: Undergraduate Researcher
+    company: RPI CogWorks Lab
+    location: Troy, NY
+    start: May 2019
+    end: Jan 2020
+    highlights:
+      - Programmed a 4-player cooperative cooking game used for cognitive science research on team performance.
+    tags: [Unity, Research]
+    project: jag
+
+education:
+  - degree: M.S. Critical Game Design
+    school: Rensselaer Polytechnic Institute
+    date: May 2021
+  - degree: B.S. Computer Science
+    school: Rensselaer Polytechnic Institute
+    date: May 2020
+
+certifications:
+  - CompTIA Security+

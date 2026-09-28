@@ -1,0 +1,29 @@
+# "Currently Building" section on the portfolio page.
+# status: short label shown as a badge (e.g. "In progress", "Prototyping", "Paused")
+# project (optional): id of a card in projects.yml; adds a "More Info" button that opens its modal.
+# links (optional): list of { label, url }
+
+- title: Grocery Run VR
+  status: In progress
+  since: 2023
+  summary: Rebuilding my thesis game as a VR title in Unreal Engine 5. Autonomous "Karen" NPCs run on a modular, data-driven state machine with NavMesh pathfinding, react to player actions through events, and navigate procedurally generated store layouts.
+  tags: [Unreal Engine 5, OpenXR, C++, Blueprints]
+  project: grocery-run
+  links:
+    - label: Dev blog
+      url: /2024/08/27/grocery-run-state-machine.html
+
+- title: LLM Tooling & MCP Integrations
+  status: Exploring
+  since: 2025
+  summary: Building with LLMs in personal projects, including Model Context Protocol integrations and prompt/context-window optimization. I treat AI as an iterative dev tool and keep it grounded in solid engineering fundamentals.
+  tags: [MCP, Python, TypeScript, Context Engineering]
+
+- title: This Website
+  status: Redesigning
+  since: 2026
+  summary: Reworking this site around what I'm building now, where I've worked, and the projects I'm proudest of. The next step is a visual overhaul.
+  tags: [Jekyll, SCSS]
+  links:
+    - label: Source
+      url: https://github.com/ZaireWilson20/zairewilson20.github.io

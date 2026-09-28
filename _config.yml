@@ -12,33 +12,11 @@ theme_settings :
     image : assets/img/ZAvatar.webp
     username : Zaire Wilson
     description : Programmer of Games, Watcher of Anime, Father of Cats
-    experience :
-      - start : December 2024
-        end : Present
-        experience : Scientific Research Corporation, Software Developer II
-      - start : September 2024
-        end : Present
-        experience : Five Mics, Lead Engineer
-      - start : January 2022
-        end : September 2024
-        experience : GOLF+, Software Engineer
-      - start : July 2021
-        end : January 2022
-        experience : Metagaming Studios, Software Engineer
-      - start : May 2019
-        end : January 2020
-        experience : Rensselaer Polytechnic Institute, Undergrad Researcher
-    education :
-      - start : August 2020
-        end : May 2021
-        school : Rensselaer Polytechnic Institute
-        degree: M.S. Critical Game Design
-      - start : August 2016
-        end : May 2020
-        school : Rensselaer Polytechnic Institute
-        degree: B.S. Game and Simulation, Arts and Science + Computer Science
+    headline : Software Engineer • Real-Time Simulation & XR • Full-Stack Applications
+    location : Charleston, SC
+    resume_url : https://drive.google.com/file/d/1LzSuUHrMmvp9Jm8mooYciWyBgP7y3DGD/view?usp=sharing
+    # Experience, education, and certifications live in _data/experience.yml
 
-        
   # Icons
   icons :
     email:  zaire.r.wilson@gmail.com

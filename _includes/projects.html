@@ -1,98 +1,45 @@
-<section id="project">
-  <div class="project-wrap container-fluid">
-    <p class="title">PROFESSIONAL PROJECTS 🙋🏽‍♂️</p>
-    <div class="card-container row">
-      {% for _ in site.data.professional-projects %}
-      {% assign project = _.project %}
-      {% assign id = id | plus: 1 %}
-      <div class="card-wrapper col-xl-4 col-lg-6 col-sm-12">
-          <div class="card">
-            {% if project.image %}
-            <div class="img-wrap">
-              <img src="{{ site.url }}/assets/project/{{ project.image }}" alt="">
-            </div>
-            {% endif %}
-            <div class="text-wrap {% if project.image %}{% endif %}">
-              <div class="title-wrap">
-                <p class="date">{{ project.date }}</p>
-                <div class="title">{{ project.title }}</div>
-              </div>
-              <div class="meta">
-                {% if project.skills %}
-                &middot;
-                {% for skill in project.skills %}
-                <span>#{{ skill }}</span>
-                {% endfor %}
-                {% endif %}
-              </div>
-              <div class="description">{{ project.description }}</div>
-            </div>
-            <div class="icons">
-              {% if project.url %}
-              {% assign url = project.url %}
-              <a href="{{ url }}"><i class="fas fa-link"></i></a>
-              {% endif %}
-              {% if project.modal %}
-              <a title="{{ id }}"type="button" class="card-btn first" onClick="open_modal(this.title)">More Info</a>
-              <!-- <a title="{{ id }}" onClick="open_modal(this.title)" class="modal-btn"><i class="fas fa-plus"></i></a> -->
-              {% endif %}
-            </div>
-          </div>
-      </div>
-      <!-- Modal Box -->
-      {% if project.modal %}
-      {% include modal.html %}
-      {% endif %}
-      <!-- Modal Box -->
-      {% endfor %}
+<section id="work" class="portfolio-section">
+  <div class="section-wrap">
+    <div class="section-head">
+      <p class="eyebrow">03</p>
+      <h2 class="title">Selected Work</h2>
+      <p class="lede">Shipped games, research, and prototypes from my time in industry and school.</p>
     </div>
-    <p class="title">PERSONAL PROJECTS 😎</p>
     <div class="card-container row">
-      {% for _ in site.data.personal-projects %}
+      {% for _ in site.data.projects %}
       {% assign project = _.project %}
-      {% assign id = id | plus: 1 %}
+      {% assign id = project.id %}
       <div class="card-wrapper col-xl-4 col-lg-6 col-sm-12">
         <div class="card">
           {% if project.image %}
           <div class="img-wrap">
-            <img src="{{ site.url }}/assets/project/{{ project.image }}" alt="">
+            <img src="{{ site.url }}/assets/project/{{ project.image }}" alt="{{ project.title }}" loading="lazy">
+            {% if project.kind %}<span class="kind">{{ project.kind }}</span>{% endif %}
           </div>
           {% endif %}
-          <div class="text-wrap {% if project.image %}{% endif %}">
+          <div class="text-wrap">
             <div class="title-wrap">
               <p class="date">{{ project.date }}</p>
               <div class="title">{{ project.title }}</div>
-            </div>
-            <div class="meta">
-              {% if project.skills %}
-              &middot;
-              {% for skill in project.skills %}
-              <span>#{{ skill }}</span>
-              {% endfor %}
-              {% endif %}
             </div>
             <div class="description">{{ project.description }}</div>
           </div>
           <div class="icons">
             {% if project.url %}
-            {% assign url = project.url %}
-            <a href="{{ url }}" target="_blank"><i class="fas fa-link"></i></a>
+            <a href="{{ project.url }}" target="_blank" rel="noopener" aria-label="Project link"><i class="fas fa-link"></i></a>
             {% endif %}
             {% if project.modal %}
-            <a title="{{ id }}"type="button" class="card-btn first" onClick="open_modal(this.title)">More Info</a>
+            <a type="button" class="card-btn first" onClick="open_modal('{{ id }}')">More Info</a>
             {% endif %}
           </div>
         </div>
       </div>
-      <!-- Modal Box -->
       {% if project.modal %}
       {% include modal.html %}
       {% endif %}
-      <!-- Modal Box -->
       {% endfor %}
     </div>
   </div>
-  <div class="bg"></div>
 </section>
 
 <!-- modal -->

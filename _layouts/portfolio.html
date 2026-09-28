@@ -16,6 +16,7 @@ layout: page
         </div>
         <div class="text-wrap col-12 col-md-8">
           <h2 class="username">{{ profile.username }}</h2>
+          {% if profile.headline %}<p class="headline">{{ profile.headline }}</p>{% endif %}
           <p class="description">{{ profile.description }}</p>
 
           <ul id="icons">
@@ -24,7 +25,7 @@ layout: page
         </div>
       </div>
       <div class="row justify-content-center">
-        <a href="https://drive.google.com/file/d/1LzSuUHrMmvp9Jm8mooYciWyBgP7y3DGD/view?usp=sharing" target="_blank"  class="btn-wrap col-4" style="padding-left: 0;">
+        <a href="{{ profile.resume_url }}" target="_blank" rel="noopener" class="btn-wrap col-4" style="padding-left: 0;">
           <p class="resumePdf">
             RESUME LINK
           </p>
@@ -33,9 +34,16 @@ layout: page
     </div>
     <div class="bg"></div>
   </section>
-  {% include projects.html %}
-  <!-- career section -->
 
+  <nav id="section-nav" aria-label="Portfolio sections">
+    <a href="#now">Currently Building</a>
+    <a href="#experience">Experience</a>
+    <a href="#work">Selected Work</a>
+  </nav>
+
+  {% include now.html %}
+  {% include experience.html %}
+  {% include projects.html %}
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {

@@ -1,35 +1,91 @@
 ---
-// Design: ProjectFrame variant a. Picture hung on a wire and nail, a little crooked; straightens on hover.
+// Design: ProjectFrame. a = picture on a wire and nail (hover to straighten),
+// b = museum mat (the frame is crooked, the label is level), c = arched frame, color = category.
 // The whole frame opens the project's detail modal.
-import { url } from '../../lib/data';
+import { url, design, type Variant } from '../../lib/data';
 
-interface Props { project: any }
-const { project: p } = Astro.props;
-const tilt = Number(p.tilt ?? 0);
+interface Props { project: any; variant?: Variant }
+const { project: p, variant = design.frame } = Astro.props;
+const img = p.image ? url(`/assets/project/${p.image}`) : null;
+const title = p.short_title ?? p.title;
+const desc = p.blurb ?? p.description;
 ---
-<div class="hang" data-color={p.color ?? 'mustard'}>
-  <div class="wire" aria-hidden="true"></div>
-  <div class="nail" aria-hidden="true"></div>
-  <a class="frame" href={`#${p.id}`} data-open-modal={p.id} style={`--frame-tilt: ${tilt}deg`}>
-    <div class="shot">
-      {p.image && <img src={url(`/assets/project/${p.image}`)} alt="" loading="lazy" />}
-    </div>
-    <div class="meta">
-      <span class="years">{p.years}</span>
-      {p.kind && <span class="pill">{p.kind}</span>}
-    </div>
-    <h3>{p.short_title ?? p.title}</h3>
-    <p class="desc">{p.blurb ?? p.description}</p>
-    <span class="more">See the details →</span>
-  </a>
+<div class:list={['hang', `v-${variant}`]} data-color={p.color ?? 'mustard'} style={`--frame-tilt: ${Number(p.tilt ?? 0)}deg`}>
+  {variant === 'a' && (
+    <>
+      <div class="wire" aria-hidden="true"></div>
+      <div class="nail" aria-hidden="true"></div>
+      <a class="frame" href={`#${p.id}`} data-open-modal={p.id}>
+        <div class="shot">{img && <img src={img} alt="" loading="lazy" />}</div>
+        <div class="meta">
+          <span class="years">{p.years}</span>
+          {p.kind && <span class="pill">{p.kind}</span>}
+        </div>
+        <h3>{title}</h3>
+        <p class="desc">{desc}</p>
+        <span class="more">See the details →</span>
+      </a>
+    </>
+  )}
+  {variant === 'b' && (
+    <a class="museum" href={`#${p.id}`} data-open-modal={p.id}>
+      <div class="mat">
+        <div class="shot">{img && <img src={img} alt="" loading="lazy" />}</div>
+      </div>
+      <div class="placard">
+        <h3>{title}</h3>
+        <p class="line">{p.years} · {p.kind}</p>
+        <p class="desc">{desc}</p>
+        <span class="more">See the details →</span>
+      </div>
+    </a>
+  )}
+  {variant === 'c' && (
+    <a class="arched" href={`#${p.id}`} data-open-modal={p.id}>
+      <div class="shot">{img && <img src={img} alt="" loading="lazy" />}</div>
+      <p class="line">{p.years} · {p.kind}</p>
+      <h3>{title}</h3>
+      <p class="desc">{desc}</p>
+      <span class="more">See the details →</span>
+    </a>
+  )}
 </div>
 
 <style>
   .hang {
     position: relative;
     width: 100%;
-    max-width: 380px;
     margin: 0 auto;
+  }
+  a {
+    text-decoration: none;
+  }
+  h3,
+  p {
+    margin: 0;
+  }
+  .shot img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .more {
+    align-self: flex-start;
+    font: 700 12px/1.4 var(--mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-bottom: 3px solid var(--accent);
+  }
+  .line {
+    font: 700 12px/1.3 var(--mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* a: wire + nail */
+  .v-a {
+    max-width: 380px;
     padding-top: 34px;
   }
   .wire {
@@ -61,7 +117,6 @@ const tilt = Number(p.tilt ?? 0);
     padding: 14px 14px 20px;
     background: var(--panel);
     color: var(--text);
-    text-decoration: none;
     border: 4px solid var(--ink);
     box-shadow: 8px 8px 0 var(--ink);
     transform: rotate(calc(var(--tilt) * var(--frame-tilt)));
@@ -73,17 +128,11 @@ const tilt = Number(p.tilt ?? 0);
     color: var(--text);
     transform: rotate(0deg);
   }
-  .shot {
+  .frame .shot {
     aspect-ratio: 16 / 10;
     border: 3px solid var(--ink);
     background: repeating-linear-gradient(135deg, var(--wall-2) 0 10px, var(--wall) 10px 20px);
     overflow: hidden;
-  }
-  .shot img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
   }
   .meta {
     display: flex;
@@ -97,27 +146,121 @@ const tilt = Number(p.tilt ?? 0);
     letter-spacing: 0.08em;
     color: var(--muted);
   }
-  .pill {
+  .frame .pill {
     background: var(--accent);
   }
-  h3 {
-    margin: 0;
+  .frame h3 {
     padding: 0 4px;
     font: 700 24px/1.1 var(--body);
   }
-  .desc {
-    margin: 0;
+  .frame .desc {
     padding: 0 4px;
     font: 400 16px/1.5 var(--body);
     color: var(--muted);
     text-wrap: pretty;
   }
-  .more {
-    align-self: flex-start;
+  .frame .more {
     margin: 2px 4px 0;
-    font: 700 12px/1.4 var(--mono);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    border-bottom: 3px solid var(--accent);
+  }
+
+  /* b: museum mat */
+  .v-b {
+    max-width: 360px;
+  }
+  .museum {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+    color: var(--ink);
+  }
+  .museum:hover {
+    color: var(--ink);
+  }
+  .mat {
+    width: 100%;
+    padding: 22px;
+    background: var(--cream);
+    border: 12px solid var(--ink);
+    box-shadow: 10px 10px 0 var(--void);
+    transform: rotate(calc(var(--tilt) * var(--frame-tilt)));
+    transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .museum:hover .mat,
+  .museum:focus-visible .mat {
+    transform: rotate(0deg);
+  }
+  .mat .shot {
+    aspect-ratio: 4 / 3;
+    border: 2px solid var(--ink);
+    background: repeating-linear-gradient(135deg, #d9d1c3 0 10px, #e6dfd2 10px 20px);
+    overflow: hidden;
+  }
+  .placard {
+    align-self: flex-end;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: min(100%, 230px);
+    padding: 12px 14px;
+    background: var(--cream);
+    border: 2px solid var(--ink);
+  }
+  .placard h3 {
+    font: 700 16px/1.15 var(--body);
+  }
+  .placard .line {
+    font-weight: 400;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+  }
+  .placard .desc {
+    font: 400 13px/1.4 var(--body);
+  }
+  .placard .more {
+    margin-top: 4px;
+    font-size: 10px;
+  }
+
+  /* c: arched frame */
+  .v-c {
+    max-width: 340px;
+  }
+  .arched {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 18px 18px 22px;
+    background: var(--accent);
+    color: var(--ink);
+    border: 4px solid var(--ink);
+    border-radius: 170px 170px 14px 14px;
+    box-shadow: 8px 8px 0 var(--ink);
+    transform: rotate(calc(var(--tilt) * var(--frame-tilt)));
+    transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .arched:hover,
+  .arched:focus-visible {
+    color: var(--ink);
+    transform: rotate(0deg) translateY(-4px);
+  }
+  .arched .shot {
+    aspect-ratio: 1 / 1;
+    border: 3px solid var(--ink);
+    border-radius: 150px 150px 6px 6px;
+    background: repeating-linear-gradient(135deg, var(--cream) 0 10px, #ddd5c7 10px 20px);
+    overflow: hidden;
+  }
+  .arched .line {
+    padding-top: 4px;
+  }
+  .arched h3 {
+    font: 700 23px/1.1 var(--body);
+  }
+  .arched .desc {
+    font: 400 15px/1.45 var(--body);
+  }
+  .arched .more {
+    border-bottom-color: var(--ink);
   }
 </style>

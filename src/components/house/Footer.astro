@@ -1,27 +1,62 @@
 ---
-// Design: Footer variant a. The doormat.
-import { site } from '../../lib/data';
+// Design: Footer. a = the doormat, b = the basement (baseboard + wall outlet).
+import { site, design } from '../../lib/data';
+
+interface Props { variant?: 'a' | 'b' }
+const { variant = design.footer } = Astro.props;
 const email = site.icons?.email;
 ---
-<footer class="footer">
-  <div class="mat">please wipe your feet</div>
-  <div class="row">
-    <div class="who">
-      {site.profile.username}
-      {email && <> · <a href={`mailto:${email}`}>{email}</a></>}
+{variant === 'a' && (
+  <footer class="v-a">
+    <div class="mat">please wipe your feet</div>
+    <div class="row">
+      <div class="who">
+        {site.profile.username}
+        {email && <> · <a href={`mailto:${email}`}>{email}</a></>}
+      </div>
+      <div class="small">BUILT WITH ASTRO.</div>
     </div>
-    <div class="built">BUILT WITH ASTRO.</div>
-  </div>
-</footer>
+  </footer>
+)}
+{variant === 'b' && (
+  <footer class="v-b">
+    <div class="baseboard"></div>
+    <div class="row wrap">
+      <div class="id">
+        <div class="small">B1 · THE BASEMENT</div>
+        <div class="name">{site.profile.username}</div>
+        {email && <a class="email" href={`mailto:${email}`}>{email}</a>}
+      </div>
+      <div class="right">
+        <div class="small">BUILT WITH ASTRO.<br />PLEASE WIPE YOUR FEET.</div>
+        <div class="outlet" aria-hidden="true">
+          <div><span></span><span></span></div>
+          <div><span></span><span></span></div>
+        </div>
+      </div>
+    </div>
+  </footer>
+)}
 
 <style>
-  .footer {
+  footer {
+    background: var(--void);
+    color: var(--cream);
+  }
+  .small {
+    font: 400 12px/1.6 var(--mono);
+    letter-spacing: 0.2em;
+    color: var(--cream);
+    opacity: 0.75;
+  }
+
+  /* a: doormat */
+  .v-a {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 34px;
     padding: 56px var(--gutter) 36px;
-    background: var(--void);
     border-top: 4px solid var(--ink);
   }
   .mat {
@@ -36,7 +71,7 @@ const email = site.icons?.email;
     color: var(--ink);
     text-align: center;
   }
-  .row {
+  .v-a .row {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -46,7 +81,6 @@ const email = site.icons?.email;
   }
   .who {
     font: 400 18px/1.4 var(--body);
-    color: var(--cream);
     overflow-wrap: anywhere;
   }
   .who a {
@@ -55,10 +89,73 @@ const email = site.icons?.email;
   .who a:hover {
     color: var(--pink);
   }
-  .built {
-    font: 400 12px/1.6 var(--mono);
-    letter-spacing: 0.2em;
+
+  /* b: basement */
+  .baseboard {
+    height: 22px;
+    background: var(--cream);
+    border-top: 4px solid var(--ink);
+    border-bottom: 4px solid var(--ink);
+  }
+  .v-b .row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    padding-block: 44px;
+  }
+  .id {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 0;
+  }
+  .name {
+    font: 800 28px/1.1 var(--body);
+  }
+  .email {
+    align-self: flex-start;
     color: var(--cream);
-    opacity: 0.75;
+    font: 700 18px/1.3 var(--body);
+    text-decoration: none;
+    padding: 0 3px 2px;
+    background-image: linear-gradient(var(--pink), var(--pink));
+    background-size: 100% 4px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    overflow-wrap: anywhere;
+  }
+  .right {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+  .right .small {
+    text-align: right;
+  }
+  .outlet {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    flex: none;
+    width: 66px;
+    height: 100px;
+    background: var(--cream);
+    border: 3px solid var(--ink);
+    border-radius: 8px;
+    box-shadow: 4px 4px 0 var(--ink);
+  }
+  .outlet div {
+    display: flex;
+    gap: 12px;
+  }
+  .outlet span {
+    width: 5px;
+    height: 16px;
+    background: var(--ink);
+    border-radius: 2px;
   }
 </style>

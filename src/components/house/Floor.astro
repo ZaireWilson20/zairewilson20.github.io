@@ -1,10 +1,27 @@
 ---
-// Design: Floor variant a. Perspective checkerboard.
+// Design: Floor. a = perspective checker, b = flat tile with a mustard baseboard, c = pink argyle, off-kilter horizon.
+import { design, type Variant } from '../../lib/data';
+
+interface Props { variant?: Variant }
+const { variant = design.floor } = Astro.props;
 ---
-<div class="floor" aria-hidden="true"><div class="tiles"></div></div>
+{variant === 'a' && <div class="floor v-a" aria-hidden="true"><div class="tiles"></div></div>}
+{variant === 'b' && (
+  <div class="floor v-b" aria-hidden="true">
+    <div class="baseboard"></div>
+    <div class="tiles"></div>
+  </div>
+)}
+{variant === 'c' && (
+  <div class="floor v-c" aria-hidden="true">
+    <div class="tilt"><div class="tiles"></div></div>
+    <div class="edge"></div>
+  </div>
+)}
 
 <style>
-  .floor {
+  /* a: perspective checker */
+  .v-a {
     position: relative;
     height: clamp(120px, 16vw, 200px);
     overflow: hidden;
@@ -13,7 +30,7 @@
     perspective-origin: 50% 0%;
     background: var(--floor-a);
   }
-  .tiles {
+  .v-a .tiles {
     position: absolute;
     left: -80%;
     right: -80%;
@@ -22,5 +39,51 @@
     transform-origin: 50% 100%;
     transform: rotateX(62deg);
     background: repeating-conic-gradient(var(--floor-a) 0 25%, var(--floor-b) 0 50%) 0 0 / 90px 90px;
+  }
+
+  /* b: flat tile + baseboard */
+  .baseboard {
+    height: 18px;
+    background: var(--mustard);
+    border-top: 4px solid var(--ink);
+    border-bottom: 4px solid var(--ink);
+  }
+  .v-b .tiles {
+    height: clamp(80px, 10vw, 120px);
+    background: repeating-conic-gradient(var(--floor-a) 0 25%, var(--floor-b) 0 50%) 0 0 / 60px 60px;
+  }
+
+  /* c: pink argyle */
+  .v-c {
+    position: relative;
+    height: clamp(120px, 16vw, 200px);
+    overflow: hidden;
+    background: var(--pink);
+  }
+  .tilt {
+    position: absolute;
+    inset: 0;
+    perspective: 320px;
+    perspective-origin: 30% 0%;
+    transform: rotate(-2deg) scale(1.08);
+    transform-origin: 50% 0%;
+  }
+  .v-c .tiles {
+    position: absolute;
+    left: -90%;
+    right: -90%;
+    bottom: 0;
+    height: 900px;
+    transform-origin: 50% 100%;
+    transform: rotateX(64deg) rotateZ(12deg);
+    background: repeating-conic-gradient(var(--pink) 0 25%, var(--cream) 0 50%) 0 0 / 100px 100px;
+  }
+  .edge {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 4px;
+    background: var(--ink);
   }
 </style>

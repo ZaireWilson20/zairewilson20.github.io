@@ -47,6 +47,13 @@
   color-scheme: light;
 }
 
+/* Motion switches (src/data/design.yml sets these on <html>) */
+:root[data-tilt='off'] {
+  --tilt: 0;
+}
+:root[data-breathe='off'] {
+  --breathe: paused;
+}
 @media (prefers-reduced-motion: reduce) {
   :root {
     --breathe: paused;
@@ -115,8 +122,8 @@ img {
 
 /* Doorknob cursor (mouse users only) */
 @media (pointer: fine) {
-  html,
-  html * {
+  html:not([data-cursor='off']),
+  html:not([data-cursor='off']) * {
     cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30'%3E%3Ccircle cx='15' cy='15' r='11' fill='%23dca630' stroke='%230d0c0f' stroke-width='3'/%3E%3Ccircle cx='11' cy='11' r='3' fill='%23fff' fill-opacity='.7'/%3E%3C/svg%3E") 15 15, auto;
   }
   input,

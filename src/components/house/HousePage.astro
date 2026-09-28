@@ -9,7 +9,7 @@ import WorkshopItem from './WorkshopItem.astro';
 import ProjectFrame from './ProjectFrame.astro';
 import ProjectModal from './ProjectModal.astro';
 import GalleryTile from './GalleryTile.astro';
-import { now, projects, gallery, experience as exp } from '../../lib/data';
+import { now, projects, gallery, experience as exp, design } from '../../lib/data';
 ---
 <House home code>
   <Hero />
@@ -17,8 +17,8 @@ import { now, projects, gallery, experience as exp } from '../../lib/data';
 
   <section id="room-workshop" class="room" data-room aria-labelledby="workshop-title">
     <RoomSign num="01" eyebrow="The Workshop" title="Currently Building" sub="Side projects and experiments on the bench right now." color="pink" />
-    <div class="wrap grid-3">
-      {now.map((item) => <WorkshopItem item={item} />)}
+    <div class:list={['wrap', design.workshop === 'c' ? 'bench-list' : 'grid-3']}>
+      {now.map((item, i) => <WorkshopItem item={item} num={String(i + 1).padStart(2, '0')} />)}
     </div>
   </section>
 
@@ -91,6 +91,10 @@ import { now, projects, gallery, experience as exp } from '../../lib/data';
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
     gap: 32px;
     width: 100%;
+  }
+  .bench-list {
+    display: flex;
+    flex-direction: column;
   }
   .frames {
     gap: 64px 48px;

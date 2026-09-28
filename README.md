@@ -23,6 +23,7 @@ npm run preview   # serve dist/ locally
 | Blog posts | `src/content/blog/YYYY-MM-DD-slug.md` (URL: `/YYYY/MM/DD/slug.html`) |
 | Pages | `src/pages/` |
 | Layouts / components | `src/layouts/`, `src/components/` |
+| Which style each component uses (variants a/b/c, motion on/off) | `src/data/design.yml` |
 | Design tokens (colors, fonts, motion) | `src/styles/global.css` |
 | House components (one per Claude Design component) | `src/components/house/` |
 | Client behavior (light switch, modals, room slide-in) | `src/scripts/house.ts` |
@@ -38,6 +39,14 @@ contents:
       - title: Medusa Puzzle
         youtube: klkgI2-2Scg
 ```
+
+## Trying design variants
+
+Every house component has the a/b/c variants from the Claude Design export. Pick them in
+`src/data/design.yml`; with `npm run dev` running, saving the file updates the page.
+
+To compare every variant side by side with real content, open http://localhost:4321/sheet
+while the dev server is running. That component sheet is dev-only and never deployed.
 
 ## Deploy
 

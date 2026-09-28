@@ -1,10 +1,11 @@
 ---
 // Design: GalleryTile. a = colored mat, b = on a plinth (round), c = under a spotlight.
-import { url } from '../../lib/data';
+import { url, design, type Variant } from '../../lib/data';
 
-interface Props { tile: any }
+interface Props { tile: any; variant?: Variant }
 const { tile: t } = Astro.props;
-const variant = t.variant ?? 'a';
+// design.yml `tile: mix` keeps each tile's own variant; a/b/c forces one style for the whole room
+const variant = Astro.props.variant ?? (design.tile === 'mix' ? t.variant ?? 'a' : design.tile);
 const style = `--ratio: ${t.ratio ?? '1/1'}; --tile-tilt: ${Number(t.tilt ?? 0)}deg`;
 const src = t.image ? url(t.image) : null;
 ---

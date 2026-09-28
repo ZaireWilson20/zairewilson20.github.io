@@ -5,12 +5,21 @@ import projectsRaw from '../data/projects.yml?raw';
 import nowRaw from '../data/now.yml?raw';
 import experienceRaw from '../data/experience.yml?raw';
 import galleryRaw from '../data/gallery.yml?raw';
+import designRaw from '../data/design.yml?raw';
 
 export const site = parse(siteRaw);
 export const projects: any[] = parse(projectsRaw).map((p: any) => p.project);
 export const now: any[] = parse(nowRaw);
 export const experience = parse(experienceRaw);
 export const gallery: any[] = parse(galleryRaw);
+
+// ---- Component variants (src/data/design.yml) ----
+export type Variant = 'a' | 'b' | 'c';
+export const design = parse(designRaw) as {
+  nav: Variant; switch: Variant; hero: Variant; avatar: Variant | 'auto'; floor: Variant; sign: Variant;
+  workshop: Variant; frame: Variant; tile: Variant | 'mix'; button: Variant; footer: 'a' | 'b';
+  motion: { tilt: boolean; breathe: boolean; flicker: boolean; roomSlide: boolean; cursor: boolean };
+};
 
 /** Prefix root-relative links with the configured base path. */
 export const url = (path: string) =>

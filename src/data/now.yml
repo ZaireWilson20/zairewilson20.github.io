@@ -1,12 +1,14 @@
 # "Currently Building" section on the portfolio page.
 # status: short label shown on the pill (e.g. "In progress", "Prototyping", "Paused"); "Since <since>" is appended
 # color: pill color (pink|sky|mustard|cream)
+# tilt: degrees the tag hangs crooked (pegboard variant)
 # project (optional): id of a card in projects.yml; adds a "More Info" button that opens its modal.
 # links (optional): list of { label, url }
 
 - title: Grocery Run VR
   status: In progress
   color: pink
+  tilt: -3
   since: 2023
   summary: Rebuilding my thesis game as a VR title in Unreal Engine 5. Autonomous "Karen" NPCs run on a modular, data-driven state machine with NavMesh pathfinding, react to player actions through events, and navigate procedurally generated store layouts.
   tags: [Unreal Engine 5, OpenXR, C++, Blueprints]
@@ -18,6 +20,7 @@
 - title: LLM Tooling & MCP Integrations
   status: Exploring
   color: sky
+  tilt: 2
   since: 2025
   summary: Building with LLMs in personal projects, including Model Context Protocol integrations and prompt/context-window optimization. I treat AI as an iterative dev tool and keep it grounded in solid engineering fundamentals.
   tags: [MCP, Python, TypeScript, Context Engineering]
@@ -25,6 +28,7 @@
 - title: This Website
   status: Redesigning
   color: mustard
+  tilt: -1.5
   since: 2026
   summary: Turned a stock Jekyll theme into a house of rooms, rebuilt in Astro and designed with Claude Design. You're standing in it. Flip the light switch.
   tags: [Astro, CSS, Claude Design]

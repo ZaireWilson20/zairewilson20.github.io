@@ -1,34 +1,63 @@
 ---
-// Design: Hero variant a. Crooked arch doorway with the avatar (avatar variant a, multiplied onto cream).
+// Design: Hero. a = crooked arch (hover leans it further), b = pink door left ajar onto open sky
+// (hover swings it shut-ish), c = front door with peephole, nameplate, and a résumé in the mail slot.
 import Button from './Button.astro';
-import { site, url } from '../../lib/data';
+import Avatar from './Avatar.astro';
+import { site, url, design, type Variant } from '../../lib/data';
+
+interface Props { variant?: Variant; avatar?: Variant | 'auto'; buttons?: Variant }
+const { variant = design.hero, avatar = design.avatar, buttons = design.button } = Astro.props;
+const av: Variant = avatar === 'auto' ? (variant === 'a' ? 'a' : 'b') : avatar;
 
 const p = site.profile;
 const [first, ...rest] = p.username.split(' ');
 const github = site.icons?.github ? `https://github.com/${site.icons.github}` : null;
+const resume = url(p.resume_url);
 ---
-<section class="hero wrap">
+<section class:list={['hero', 'wrap', `v-${variant}`]}>
   <div class="copy">
     <p class="mono-label">{p.location} · Software Engineer</p>
     <h1><span>{first}</span><span>{rest.join(' ')}</span></h1>
     <p class="tagline">{p.tagline}</p>
     <p class="quip">{p.quip}</p>
     <div class="actions">
-      <Button href={url(p.resume_url)} color="mustard" external>Resume →</Button>
-      {github && <Button href={github} color="panel" external>GitHub</Button>}
-      {site.icons?.linkedin && <Button href={site.icons.linkedin} color="panel" external>LinkedIn</Button>}
+      <Button href={resume} color="mustard" variant={buttons} external>Resume →</Button>
+      {github && <Button href={github} color="panel" variant={buttons} external>GitHub</Button>}
+      {site.icons?.linkedin && <Button href={site.icons.linkedin} color="panel" variant={buttons} external>LinkedIn</Button>}
     </div>
   </div>
 
   <div class="door-stage">
     <div class="breathe">
-      <div class="door">
-        <div class="arch"></div>
-        <div class="portrait">
-          <img src={url(p.image)} alt={`Illustrated portrait of ${p.username}`} />
+      {variant === 'a' && (
+        <div class="arch-door">
+          <div class="arch"></div>
+          <div class="portrait"><Avatar variant={av} /></div>
+          <div class="sign knock">PLEASE KNOCK</div>
         </div>
-        <div class="knock">PLEASE KNOCK</div>
-      </div>
+      )}
+      {variant === 'b' && (
+        <div class="ajar">
+          <div class="sky">
+            <div class="sky-portrait"><Avatar variant={av} /></div>
+          </div>
+          <div class="leaf" aria-hidden="true">
+            <div class="panel-inset"></div>
+            <div class="knob"></div>
+          </div>
+          <div class="sign come-in">COME IN</div>
+        </div>
+      )}
+      {variant === 'c' && (
+        <div class="front">
+          <div class="peephole"><Avatar variant={av} /></div>
+          <div class="nameplate">Z. WILSON · NO. 20</div>
+          <div class="slot">
+            <a class="letter" href={resume} target="_blank" rel="noopener">RÉSUMÉ ↑</a>
+          </div>
+          <div class="knob"></div>
+        </div>
+      )}
     </div>
   </div>
 </section>
@@ -91,16 +120,31 @@ const github = site.icons?.github ? `https://github.com/${site.icons.github}` : 
     animation-play-state: var(--breathe);
     transform-origin: 50% 100%;
   }
-  .door {
+  /* Phones: scale the whole doorway down */
+  @media (max-width: 560px) {
+    .door-stage {
+      zoom: 0.66;
+    }
+  }
+
+  .sign {
+    position: absolute;
+    font: 700 13px/1 var(--mono);
+    letter-spacing: 0.14em;
+    white-space: nowrap;
+  }
+
+  /* a: crooked arch */
+  .arch-door {
     position: relative;
     width: 380px;
     height: 520px;
-    transform: perspective(900px) rotateY(-10deg) rotate(-1.5deg);
+    transform: perspective(900px) rotateY(calc(var(--tilt) * -10deg)) rotate(calc(var(--tilt) * -1.5deg));
     transform-origin: 50% 100%;
     transition: transform 0.5s cubic-bezier(0.3, 1.6, 0.5, 1);
   }
-  .door:hover {
-    transform: perspective(900px) rotateY(-18deg) rotate(-3.5deg);
+  .arch-door:hover {
+    transform: perspective(900px) rotateY(calc(var(--tilt) * -18deg)) rotate(calc(var(--tilt) * -3.5deg));
   }
   .arch {
     position: absolute;
@@ -123,49 +167,157 @@ const github = site.icons?.github ? `https://github.com/${site.icons.github}` : 
     border-radius: 150px 150px 0 0;
     overflow: hidden;
   }
-  .portrait img {
-    position: absolute;
-    inset: 0;
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: 50% 20%;
-    mix-blend-mode: multiply;
-  }
   .knock {
-    position: absolute;
     top: 118px;
     right: -46px;
     padding: 9px 15px;
     background: var(--ink);
     color: var(--cream);
-    font: 700 13px/1 var(--mono);
-    letter-spacing: 0.14em;
     border: 2px solid var(--cream);
     box-shadow: 4px 4px 0 var(--pink);
     transform: rotate(8deg);
   }
 
-  /* Phones: shrink the doorway and keep the sign on screen */
-  @media (max-width: 560px) {
-    .door {
-      width: 250px;
-      height: 340px;
-    }
-    .arch {
-      border-radius: 125px 125px 0 0;
-    }
-    .portrait {
-      left: 30px;
-      right: 30px;
-      height: 205px;
-      border-radius: 100px 100px 0 0;
-    }
-    .knock {
-      top: 70px;
-      right: -18px;
-      font-size: 11px;
-    }
+  /* b: pink door left ajar */
+  .ajar {
+    position: relative;
+    width: 360px;
+    height: 500px;
+    transform: rotate(calc(var(--tilt) * 1.5deg));
+    transform-origin: 50% 100%;
+  }
+  .sky {
+    position: absolute;
+    inset: 0;
+    background: var(--sky);
+    border: 4px solid var(--ink);
+    border-bottom: none;
+    border-radius: 180px 180px 0 0;
+    overflow: hidden;
+  }
+  .sky-portrait {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 78%;
+  }
+  .leaf {
+    position: absolute;
+    inset: -4px -4px 0 -4px;
+    background: var(--pink);
+    border: 4px solid var(--ink);
+    border-bottom: none;
+    border-radius: 184px 184px 0 0;
+    transform-origin: 0 50%;
+    transform: perspective(1400px) rotateY(-62deg);
+    transition: transform 0.6s cubic-bezier(0.3, 1.5, 0.5, 1);
+  }
+  .ajar:hover .leaf {
+    transform: perspective(1400px) rotateY(-28deg);
+  }
+  .panel-inset {
+    position: absolute;
+    inset: 34px 34px 40px;
+    border: 4px solid var(--ink);
+    border-radius: 150px 150px 6px 6px;
+  }
+  .leaf .knob {
+    position: absolute;
+    right: 26px;
+    top: 54%;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--mustard);
+    border: 4px solid var(--ink);
+  }
+  .come-in {
+    left: -70px;
+    top: 70px;
+    padding: 8px 13px;
+    background: var(--cream);
+    color: var(--ink);
+    font-size: 12px;
+    border: 3px solid var(--ink);
+    box-shadow: 4px 4px 0 var(--ink);
+    transform: rotate(-7deg);
+  }
+
+  /* c: front door */
+  .front {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    width: 320px;
+    height: 520px;
+    padding-top: 50px;
+    background: var(--mustard);
+    border: 4px solid var(--ink);
+    border-bottom: none;
+    border-radius: 16px 16px 0 0;
+    box-shadow: 12px 0 0 var(--ink);
+    transform: rotate(calc(var(--tilt) * 1.8deg)) skewX(calc(var(--tilt) * -1.5deg));
+    transform-origin: 50% 100%;
+    transition: transform 0.5s cubic-bezier(0.3, 1.6, 0.5, 1);
+  }
+  .front:hover {
+    transform: rotate(calc(var(--tilt) * -1deg)) skewX(calc(var(--tilt) * 1deg));
+  }
+  .peephole {
+    position: relative;
+    width: 190px;
+    height: 190px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: var(--sky);
+    border: 4px solid var(--ink);
+    box-shadow: 0 0 0 12px var(--cream), 0 0 0 16px var(--ink);
+  }
+  .nameplate {
+    padding: 7px 13px;
+    background: var(--cream);
+    color: var(--ink);
+    border: 3px solid var(--ink);
+    border-radius: 4px;
+    font: 700 13px/1 var(--mono);
+    letter-spacing: 0.12em;
+  }
+  .slot {
+    position: relative;
+    width: 150px;
+    height: 26px;
+    background: var(--ink);
+    border-radius: 5px;
+  }
+  .letter {
+    position: absolute;
+    left: 28px;
+    top: -26px;
+    padding: 8px 12px 18px;
+    background: var(--cream);
+    color: var(--ink);
+    border: 3px solid var(--ink);
+    font: 700 11px/1 var(--mono);
+    letter-spacing: 0.12em;
+    text-decoration: none;
+    transform: rotate(-7deg);
+    transition: transform 0.25s;
+  }
+  .letter:hover {
+    color: var(--ink);
+    transform: rotate(-2deg) translateY(-8px);
+  }
+  .front .knob {
+    position: absolute;
+    right: 26px;
+    top: 330px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--cream);
+    border: 4px solid var(--ink);
   }
 </style>

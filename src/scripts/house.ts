@@ -26,7 +26,7 @@ document.addEventListener('click', (e) => {
   const sw = (e.target as Element).closest('[data-light-switch]');
   if (!sw) return;
   const next = root.dataset.theme === 'light' ? 'dark' : 'light';
-  if (reduceMotion) return setTheme(next);
+  if (reduceMotion || root.dataset.flicker === 'off') return setTheme(next);
   // Flicker, swap mid-flicker, settle
   root.classList.add('is-flickering');
   setTimeout(() => setTheme(next), 260);
@@ -69,7 +69,7 @@ if (location.hash) openModal(decodeURIComponent(location.hash.slice(1)));
 
 // ---- Rooms slide in as you reach them ----
 const rooms = [...document.querySelectorAll<HTMLElement>('[data-room]')];
-if (rooms.length && 'IntersectionObserver' in window && !reduceMotion) {
+if (rooms.length && 'IntersectionObserver' in window && !reduceMotion && root.dataset.roomSlide !== 'off') {
   const reveal = new IntersectionObserver(
     (entries) => {
       entries.forEach((en) => {
